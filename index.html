@@ -53,7 +53,7 @@ const jaTemosList = [
 ];
 
 const ambientesInicial = [
-  {id:'cozinha',cor:'#2a2a2a',corBg:'#f0f0f0',icon:'🍳',titulo:'Cozinha',open:true,itens:[
+  {id:'cozinha',cor:'#2a2a2a',corBg:'#f0f0f0',icon:'🍳',titulo:'Cozinha',open:false,itens:[
     {id:1,icon:'🍴',nome:'Faqueiro',desc:'Jogo completo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:2,icon:'🔪',nome:'Jogo de facas',desc:'Aço inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:3,icon:'🪵',nome:'Tábuas de corte',desc:'Kit com tábuas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
@@ -363,14 +363,16 @@ function App(){
         </div>
 
         {/* ENDEREÇO */}
-        <button onClick={()=>setMapaOpen(true)} style={{display:'inline-flex',alignItems:'center',gap:8,marginTop:'1.5rem',background:'rgba(255,255,255,.1)',border:'1px solid rgba(255,255,255,.2)',borderRadius:30,padding:'.6rem 1.25rem',color:'rgba(255,255,255,.85)',fontSize:'13px',cursor:'pointer',fontFamily:'inherit'}}>
-          <span>📍</span>
-          <span>Ponte Alta — Gama, DF</span>
-          <span style={{fontSize:'10px',color:DOURADO,letterSpacing:'1px'}}>COMO CHEGAR ›</span>
-        </button>
+        <div style={{marginTop:'1.5rem'}}>
+          <button onClick={()=>setMapaOpen(true)} style={{display:'inline-flex',alignItems:'center',gap:8,background:'rgba(255,255,255,.1)',border:'1px solid rgba(255,255,255,.2)',borderRadius:30,padding:'.6rem 1.25rem',color:'rgba(255,255,255,.85)',fontSize:'13px',cursor:'pointer',fontFamily:'inherit'}}>
+            <span>📍</span>
+            <span>Ponte Alta — Gama, DF</span>
+            <span style={{fontSize:'10px',color:DOURADO,letterSpacing:'1px'}}>COMO CHEGAR ›</span>
+          </button>
+        </div>
 
         {/* PALETA DE CORES */}
-        <div style={{marginTop:'1.75rem',display:'inline-block',background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.12)',borderRadius:16,padding:'1rem 1.5rem'}}>
+        <div style={{marginTop:'1.5rem',display:'inline-block',background:'rgba(255,255,255,.06)',border:'1px solid rgba(255,255,255,.12)',borderRadius:16,padding:'1rem 1.5rem'}}>
           <p style={{fontSize:'10px',letterSpacing:'2px',textTransform:'uppercase',color:'rgba(255,255,255,.5)',marginBottom:'.75rem'}}>🎨 Preferimos presentes nessa paleta</p>
           <div style={{display:'flex',justifyContent:'center',alignItems:'center',gap:16}}>
             {[{cor:'#1a1a1a',label:'Preto'},{cor:'#6b6b6b',label:'Cinza'},{cor:'#c0c0c0',label:'Prata'},{cor:'#ffffff',label:'Branco'}].map(({cor,label})=>(
