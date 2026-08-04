@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Lista de Presentes W&D</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Lato',sans-serif;background:#f0f2f5;color:#333;}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel">
+const { useState, useEffect } = React;
+
+const PROJECT_ID = "cha-panelas-werberth-dayane";
+const API_KEY = "AIzaSyAmzNIHJMpJyaNZWEhuX4s7CSSUfn86j4E";
+const BASE_URL = `https://firestore.googleapis.com/v1/projects/${PROJECT_ID}/databases/(default)/documents`;
+
+const ADMIN_USER = "werberth";
+const ADMIN_PASS = "dayane2026";
+
+const AZUL = '#1a4a7a';
+const DOURADO = '#c8a96e';
+
+const fbGet = async (col, docId) => {
+  const r = await fetch(`${BASE_URL}/${col}/${docId}?key=${API_KEY}`);
+  if (!r.ok) return null;
+  const d = await r.json();
+  return d.fields ? JSON.parse(d.fields.data.stringValue) : null;
+};
+
+function Login({ onLogin }) {
+  const [user, setUser] = useState('');
+  const [pass, setPass] = useState('');
+  const [erro, setErro] = useState('');
+
+  const entrar = () => {
+    if (user === ADMIN_USER && pass === ADMIN_PASS) {
+      onLogin();
+    } else {
+      setErro('Usuário ou senha incorretos!');
+    }
+  };
+
+  return (
+    <div style={{minHeight:'100vh',background:AZUL,display:'flex',alignItems:'center',justifyContent:'center'}}>
+      <div style={{background:'#fff',borderRadius:18,padding:'2.5rem 2rem',maxWidth:380,width:'92%',textAlign:'center',boxShadow:'0 20px 60px rgba(0,0,0,.3)'}}>
+        <div style={{fontFamily:"'Playfair Display',serif",fontSize:'1.8rem',color:AZUL,marginBottom:'.3rem'}}>
+          Werberth <em style={{color:DOURADO}}>&</em> Dayane
+        </div>
+        <p style={{fontSize:'12px',color:'#aaa',letterSpacing:'2px',textTransform:'uppercase',marginBottom:'2rem'}}>Painel Administrativo</p>
+
+        <div style={{width:60,height:60,background:AZUL,borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'1.5rem',margin:'0 auto 1.5rem'}}>🔐</div>
+
+        <div style={{textAlign:'left',marginBottom:'1rem'}}>
+          <label style={{fontSize:'11px',color:'#888',textTransform:'uppercase',letterSpacing:'1px',display:'block',marginBottom:'.35rem'}}>Usuário</label>
+          <input value={user} onChange={e=>setUser(e.target.value)} placeholder="Digite o usuário" style={{width:'100%',padding:'.75rem 1rem',border:'1.5px solid #e0e0e0',borderRadius:10,fontSize:'14px',fontFamily:'inherit',outline:'none'}} onKeyDown={e=>e.key==='Enter'&&entrar()}/>
+        </div>
+        <div style={{textAlign:'left',marginBottom:'1.5rem'}}>
+          <label style={{fontSize:'11px',color:'#888',textTransform:'uppercase',letterSpacing:'1px',display:'block',marginBottom:'.35rem'}}>Senha</label>
+          <input type="password" value={pass} onChange={e=>setPass(e.target.value)} placeholder="Digite a senha" style={{width:'100%',padding:'.75rem 1rem',border:'1.5px solid #e0e0e0',borderRadius:10,fontSize:'14px',fontFamily:'inherit',outline:'none'}} onKeyDown={e=>e.key==='Enter'&&entrar()}/>
+        </div>
+        {erro && <p style={{color:'#e53935',fontSize:'13px',marginBottom:'1rem',background:'#ffebee',borderRadius:8,padding:'.5rem'}}>{erro}</p>}
+        <button onClick={entrar} style={{width:'100%',background:AZUL,color:'#fff',border:'none',borderRadius:10,padding:'.85rem',fontSize:'15px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>
+          Entrar
+        </button>
+        <p style={{fontSize:'11px',color:'#ccc',marginTop:'1.5rem'}}>Acesso restrito aos administradores</p>
+      </div>
+    </div>
+  );
+}
+
+function Admin({ onLogout }) {
+  const [dados, setDados] = useState(null);
+  const [sugestoes, setSugestoes] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [aba, setAba] = useState('reservados');
+  const [ultima, setUltima] = useState(null);
+
+  const carregar = async () => {
+    try {
+      const amb = await fbGet('dados', 'ambientes');
+      const sug = await fbGet('dados', 'sugestoes');
+      setDados(amb);
+      setSugestoes(sug || []);
+      setUltima(new Date());
+    } catch(e) { console.error(e); }
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    carregar();
+    const t = setInterval(carregar, 30000);
+    return () => clearInterval(t);
+  }, []);
+
+  const todosItens = dados ? dados.flatMap(a => a.itens) : [];
+  const reservados = todosItens.filter(i => i.status === 'reservado');
+  const vaquinhas = todosItens.filter(i => i.contribuicoes && i.contribuicoes.length > 0);
+  const totalVaq = vaquinhas.reduce((s, i) => s + i.contribuicoes.reduce((a, c) => a + c.valor, 0), 0);
+  const ambDe = (id) => dados?.find(a => a.itens.some(i => i.id === id));
+
+  const abas = [
+    {id:'reservados', label:'🎁 Reservados', count: reservados.length},
+    {id:'vaquinhas', label:'🐄 Vaquinhas', count: vaquinhas.length},
+    {id:'vouLevar', label:'🎀 Vou Levar', count: sugestoes.length},
+    {id:'geral', label:'📊 Geral', count: null},
+  ];
+
+  if (loading) return (
+    <div style={{minHeight:'100vh',background:AZUL,display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',gap:'1rem'}}>
+      <div style={{width:40,height:40,border:`3px solid rgba(255,255,255,.2)`,borderTop:`3px solid ${DOURADO}`,borderRadius:'50%',animation:'spin 1s linear infinite'}}/>
+      <p style={{color:'rgba(255,255,255,.6)',fontSize:'13px',letterSpacing:'2px'}}>CARREGANDO...</p>
+      <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+    </div>
+  );
+
+  return (
+    <div style={{minHeight:'100vh',background:'#f0f2f5'}}>
+      {/* HEADER */}
+      <div style={{background:AZUL,padding:'1rem 1.5rem',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+        <div>
+          <div style={{fontFamily:"'Playfair Display',serif",fontSize:'1.2rem',color:'#fff'}}>Werberth <em style={{color:DOURADO}}>&</em> Dayane</div>
+          <div style={{fontSize:'11px',color:'rgba(255,255,255,.5)',letterSpacing:'1px'}}>PAINEL ADMINISTRATIVO</div>
+        </div>
+        <div style={{display:'flex',alignItems:'center',gap:'1rem'}}>
+          {ultima && <span style={{fontSize:'11px',color:'rgba(255,255,255,.4)'}}>Atualizado: {ultima.toLocaleTimeString('pt-BR')}</span>}
+          <button onClick={carregar} style={{background:'rgba(255,255,255,.1)',color:'#fff',border:'none',borderRadius:8,padding:'.4rem .8rem',fontSize:'12px',cursor:'pointer',fontFamily:'inherit'}}>🔄 Atualizar</button>
+          <button onClick={onLogout} style={{background:'rgba(255,255,255,.1)',color:'#fff',border:'none',borderRadius:8,padding:'.4rem .8rem',fontSize:'12px',cursor:'pointer',fontFamily:'inherit'}}>Sair</button>
+        </div>
+      </div>
+
+      {/* STATS */}
+      <div style={{maxWidth:1000,margin:'0 auto',padding:'1.5rem 1.25rem 0'}}>
+        <div style={{display:'grid',gridTemplateColumns:'repeat(4,1fr)',gap:12,marginBottom:'1.5rem'}}>
+          {[
+            {label:'Total de itens',valor:todosItens.length,icon:'📋',cor:'#1a4a7a'},
+            {label:'Reservados',valor:reservados.length,icon:'🎁',cor:'#e65100'},
+            {label:'Em vaquinha',valor:vaquinhas.length,icon:'🐄',cor:'#0288d1'},
+            {label:'Total arrecadado',valor:`R$ ${totalVaq.toFixed(2).replace('.',',')}`,icon:'💰',cor:'#2e7d32'},
+          ].map(s=>(
+            <div key={s.label} style={{background:'#fff',borderRadius:12,padding:'1rem',borderLeft:`4px solid ${s.cor}`,boxShadow:'0 2px 8px rgba(0,0,0,.05)'}}>
+              <div style={{fontSize:'1.4rem',marginBottom:'.3rem'}}>{s.icon}</div>
+              <div style={{fontSize:'1.4rem',fontWeight:700,color:s.cor}}>{s.valor}</div>
+              <div style={{fontSize:'11px',color:'#aaa',textTransform:'uppercase',letterSpacing:'.8px'}}>{s.label}</div>
+            </div>
+          ))}
+        </div>
+
+        {/* ABAS */}
+        <div style={{display:'flex',gap:8,marginBottom:'1.25rem',flexWrap:'wrap'}}>
+          {abas.map(a=>(
+            <button key={a.id} onClick={()=>setAba(a.id)} style={{background:aba===a.id?AZUL:'#fff',color:aba===a.id?'#fff':'#555',border:`1.5px solid ${aba===a.id?AZUL:'#ddd'}`,borderRadius:20,padding:'.4rem 1rem',fontSize:'13px',cursor:'pointer',fontFamily:'inherit',fontWeight:aba===a.id?700:400}}>
+              {a.label}{a.count!==null?` (${a.count})`:''}
+            </button>
+          ))}
+        </div>
+
+        {/* RESERVADOS */}
+        {aba==='reservados' && (
+          reservados.length === 0
+            ? <div style={{background:'#fff',borderRadius:12,padding:'3rem',textAlign:'center',color:'#aaa'}}>
+                <div style={{fontSize:'3rem',marginBottom:'1rem'}}>🎁</div>
+                <p>Nenhum presente reservado ainda.</p>
+              </div>
+            : <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))',gap:12}}>
+                {reservados.map(item => {
+                  const amb = ambDe(item.id);
+                  return (
+                    <div key={item.id} style={{background:'#fff',borderRadius:12,padding:'1.1rem',boxShadow:'0 2px 8px rgba(0,0,0,.05)',borderLeft:`4px solid ${amb?.cor||'#ccc'}`}}>
+                      <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:'.75rem'}}>
+                        <span style={{fontSize:'1.5rem'}}>{item.icon}</span>
+                        <div>
+                          <div style={{fontSize:'14px',fontWeight:700,color:AZUL}}>{item.nome}</div>
+                          <div style={{fontSize:'11px',color:'#aaa'}}>{amb?.titulo}</div>
+                        </div>
+                        <span style={{marginLeft:'auto',background:'#fff3e0',color:'#e65100',borderRadius:20,padding:'3px 10px',fontSize:'11px',fontWeight:700}}>✓ Reservado</span>
+                      </div>
+                      <div style={{background:'#f5f7fa',borderRadius:8,padding:'.6rem .85rem'}}>
+                        <div style={{fontSize:'13px',fontWeight:700,color:'#333'}}>👤 {item.reservadoPor}</div>
+                        {item.msgReserva && <div style={{fontSize:'12px',color:'#666',marginTop:'.3rem',fontStyle:'italic'}}>💬 "{item.msgReserva}"</div>}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+        )}
+
+        {/* VAQUINHAS */}
+        {aba==='vaquinhas' && (
+          vaquinhas.length === 0
+            ? <div style={{background:'#fff',borderRadius:12,padding:'3rem',textAlign:'center',color:'#aaa'}}>
+                <div style={{fontSize:'3rem',marginBottom:'1rem'}}>🐄</div>
+                <p>Nenhuma vaquinha ainda.</p>
+              </div>
+            : <div style={{display:'flex',flexDirection:'column',gap:12}}>
+                {vaquinhas.map(item => {
+                  const amb = ambDe(item.id);
+                  const total = item.contribuicoes.reduce((s,c)=>s+c.valor,0);
+                  return (
+                    <div key={item.id} style={{background:'#fff',borderRadius:12,padding:'1.1rem',boxShadow:'0 2px 8px rgba(0,0,0,.05)',borderLeft:`4px solid #0288d1`}}>
+                      <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:'.85rem'}}>
+                        <span style={{fontSize:'1.4rem'}}>{item.icon}</span>
+                        <div>
+                          <div style={{fontSize:'14px',fontWeight:700,color:AZUL}}>{item.nome}</div>
+                          <div style={{fontSize:'11px',color:'#aaa'}}>{amb?.titulo}</div>
+                        </div>
+                        <div style={{marginLeft:'auto',textAlign:'right'}}>
+                          <div style={{fontSize:'16px',fontWeight:700,color:'#2e7d32'}}>R$ {total.toFixed(2).replace('.',',')}</div>
+                          <div style={{fontSize:'11px',color:'#aaa'}}>{item.contribuicoes.length} contribuição(ões)</div>
+                        </div>
+                      </div>
+                      <div style={{display:'flex',flexDirection:'column',gap:6}}>
+                        {item.contribuicoes.map((c,i)=>(
+                          <div key={i} style={{background:'#e3f2fd',borderRadius:8,padding:'.5rem .85rem',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+                            <div>
+                              <span style={{fontSize:'13px',fontWeight:700,color:'#0d47a1'}}>👤 {c.nome}</span>
+                              {c.msg && <div style={{fontSize:'11px',color:'#555',fontStyle:'italic'}}>💬 "{c.msg}"</div>}
+                            </div>
+                            <span style={{fontSize:'14px',fontWeight:700,color:'#2e7d32'}}>R$ {c.valor.toFixed(2).replace('.',',')}</span>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+        )}
+
+        {/* VOU LEVAR */}
+        {aba==='vouLevar' && (
+          sugestoes.length === 0
+            ? <div style={{background:'#fff',borderRadius:12,padding:'3rem',textAlign:'center',color:'#aaa'}}>
+                <div style={{fontSize:'3rem',marginBottom:'1rem'}}>🎀</div>
+                <p>Nenhum convidado registrou o que vai levar ainda.</p>
+              </div>
+            : <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))',gap:12}}>
+                {sugestoes.map(s=>(
+                  <div key={s.id} style={{background:'#fff',borderRadius:12,padding:'1.1rem',boxShadow:'0 2px 8px rgba(0,0,0,.05)',borderLeft:'4px solid #2e7d32'}}>
+                    <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:'.6rem'}}>
+                      <span style={{fontSize:'1.3rem'}}>🎁</span>
+                      <div style={{fontSize:'14px',fontWeight:700,color:AZUL}}>{s.item}</div>
+                    </div>
+                    <div style={{fontSize:'13px',fontWeight:700,color:'#333',marginBottom:'.3rem'}}>👤 {s.nome}</div>
+                    {s.obs && <div style={{fontSize:'12px',color:'#888',fontStyle:'italic'}}>📝 {s.obs}</div>}
+                  </div>
+                ))}
+              </div>
+        )}
+
+        {/* GERAL */}
+        {aba==='geral' && dados && (
+          <div style={{display:'flex',flexDirection:'column',gap:12}}>
+            {dados.map(amb => {
+              const livres = amb.itens.filter(i=>i.status!=='reservado').length;
+              const res = amb.itens.filter(i=>i.status==='reservado').length;
+              const vaq = amb.itens.filter(i=>i.contribuicoes&&i.contribuicoes.length>0&&i.status!=='reservado').length;
+              return (
+                <div key={amb.id} style={{background:'#fff',borderRadius:12,padding:'1.1rem',boxShadow:'0 2px 8px rgba(0,0,0,.05)',borderLeft:`4px solid ${amb.cor}`}}>
+                  <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:'.85rem'}}>
+                    <span style={{fontSize:'1.3rem'}}>{amb.icon}</span>
+                    <span style={{fontFamily:"'Playfair Display',serif",fontSize:'1.1rem',color:amb.cor==='#c8a96e'?'#7a5c1e':amb.cor}}>{amb.titulo}</span>
+                    <div style={{marginLeft:'auto',display:'flex',gap:8}}>
+                      <span style={{background:'#e8f5e9',color:'#2e7d32',borderRadius:20,padding:'3px 10px',fontSize:'11px',fontWeight:700}}>✓ {livres} livres</span>
+                      {res>0&&<span style={{background:'#fff3e0',color:'#e65100',borderRadius:20,padding:'3px 10px',fontSize:'11px',fontWeight:700}}>🎁 {res} reservados</span>}
+                      {vaq>0&&<span style={{background:'#e3f2fd',color:'#0d47a1',borderRadius:20,padding:'3px 10px',fontSize:'11px',fontWeight:700}}>🐄 {vaq} vaquinha</span>}
+                    </div>
+                  </div>
+                  <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(160px,1fr))',gap:6}}>
+                    {amb.itens.map(item=>(
+                      <div key={item.id} style={{background:item.status==='reservado'?'#fff3e0':item.contribuicoes?.length>0?'#e3f2fd':'#f5f5f5',borderRadius:8,padding:'.45rem .7rem',fontSize:'12px'}}>
+                        <span style={{marginRight:4}}>{item.icon}</span>
+                        <span style={{fontWeight:item.status==='reservado'?700:400,color:item.status==='reservado'?'#e65100':'#555'}}>{item.nome}</span>
+                        {item.status==='reservado'&&<div style={{fontSize:'10px',color:'#888',marginTop:2}}>👤 {item.reservadoPor}</div>}
+                        {item.contribuicoes?.length>0&&item.status!=='reservado'&&<div style={{fontSize:'10px',color:'#0d47a1',marginTop:2}}>🐄 {item.contribuicoes.length} ajuda(s)</div>}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
+
+        <div style={{height:'2rem'}}/>
+      </div>
+    </div>
+  );
+}
+
+function App() {
+  const [logado, setLogado] = useState(false);
+  return logado ? <Admin onLogout={()=>setLogado(false)}/> : <Login onLogin={()=>setLogado(true)}/>;
+}
+
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
+</script>
+</body>
+</html>
