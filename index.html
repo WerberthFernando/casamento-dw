@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chá de Panelas - Werberth & Dayane 💍</title>
+<title>Lista de Presentes - Werberth & Dayane 💍</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
 <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
 <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
@@ -54,95 +54,95 @@ const jaTemosList = [
 
 const ambientesInicial = [
   {id:'cozinha',cor:'#2a2a2a',corBg:'#f0f0f0',icon:'🍳',titulo:'Cozinha',open:true,itens:[
-    {id:1,icon:'🍴',img:'https://images.unsplash.com/photo-1593467685793-f4e5e00bf6b0?w=400&q=80',nome:'Faqueiro',desc:'Jogo completo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:2,icon:'🔪',img:'https://images.unsplash.com/photo-1566843972142-a7fcb70de55b?w=400&q=80',nome:'Jogo de facas',desc:'Aço inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:3,icon:'🪵',img:'https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=400&q=80',nome:'Tábuas de corte',desc:'Kit com tábuas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:4,icon:'🥘',img:'https://images.unsplash.com/photo-1607290083694-5b8fe2ebc0d8?w=400&q=80',nome:'Assadeiras',desc:'Kit de assadeiras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:5,icon:'🎂',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',nome:'Formas para bolo',desc:'Kit de formas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:6,icon:'🍱',img:'https://images.unsplash.com/photo-1603569283847-aa295f0d016a?w=400&q=80',nome:'Travessas',desc:'Porcelana ou vidro',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:7,icon:'🥣',img:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80',nome:'Bowls (tigelas)',desc:'Kit de tigelas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:8,icon:'🫙',img:'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400&q=80',nome:'Potes herméticos',desc:'Kit variado',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:9,icon:'📦',img:'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400&q=80',nome:'Potes organizadores geladeira',desc:'Para organizar a geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:10,icon:'🗄️',img:'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?w=400&q=80',nome:'Gavetas organizadoras geladeira',desc:'Para gavetas da geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:11,icon:'🥦',img:'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&q=80',nome:'Organizadores frutas e legumes',desc:'Para geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:12,icon:'🧺',img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',nome:'Escorredor de louça',desc:'Inox ou plástico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:13,icon:'🍷',img:'https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&q=80',nome:'Taças de vinho',desc:'Kit com 6 ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:14,icon:'🥂',img:'https://images.unsplash.com/photo-1547595628-c61a29f496f0?w=400&q=80',nome:'Taças de espumante',desc:'Kit com 6 ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:15,icon:'☕',img:'https://images.unsplash.com/photo-1514228742587-6b1558fcca3d?w=400&q=80',nome:'Xícaras de café',desc:'Kit com 6',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:16,icon:'🫖',img:'https://images.unsplash.com/photo-1572119865084-43c285814d63?w=400&q=80',nome:'Canecas',desc:'Kit de canecas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:17,icon:'🥄',img:'https://images.unsplash.com/photo-1593467685793-f4e5e00bf6b0?w=400&q=80',nome:'Talheres de servir',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:18,icon:'🥛',img:'https://images.unsplash.com/photo-1544145945-f90425340c7e?w=400&q=80',nome:'Jarra de vidro',desc:'Para suco ou água',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:19,icon:'🪣',img:'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&q=80',nome:'Bandejas',desc:'Kit de bandejas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:20,icon:'🗑️',img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',nome:'Lixeira',desc:'Com tampa inox ou preta',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:21,icon:'🍝',img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',nome:'Escorredor de macarrão',desc:'Inox ou plástico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:22,icon:'🧀',img:'https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=400&q=80',nome:'Ralador',desc:'Multifuncional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:23,icon:'🥫',img:'https://images.unsplash.com/photo-1566843972142-a7fcb70de55b?w=400&q=80',nome:'Abridor de latas e garrafas',desc:'Kit abridor',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:24,icon:'🥕',img:'https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=400&q=80',nome:'Descascador de legumes',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:25,icon:'🧄',img:'https://images.unsplash.com/photo-1588168333986-5078d3ae3976?w=400&q=80',nome:'Espremedor de alho',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:26,icon:'🥛',img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',nome:'Colheres e xícaras medidoras',desc:'Kit medidor',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:1,icon:'🍴',nome:'Faqueiro',desc:'Jogo completo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:2,icon:'🔪',nome:'Jogo de facas',desc:'Aço inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:3,icon:'🪵',nome:'Tábuas de corte',desc:'Kit com tábuas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:4,icon:'🥘',nome:'Assadeiras',desc:'Kit de assadeiras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:5,icon:'🎂',nome:'Formas para bolo',desc:'Kit de formas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:6,icon:'🍱',nome:'Travessas',desc:'Porcelana ou vidro',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:7,icon:'🥣',nome:'Bowls (tigelas)',desc:'Kit de tigelas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:8,icon:'🫙',nome:'Potes herméticos',desc:'Kit variado',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:9,icon:'📦',nome:'Potes organizadores geladeira',desc:'Para organizar a geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:10,icon:'🗄️',nome:'Gavetas organizadoras geladeira',desc:'Para gavetas da geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:11,icon:'🥦',nome:'Organizadores frutas e legumes',desc:'Para geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:12,icon:'🧺',nome:'Escorredor de louça',desc:'Inox ou plástico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:13,icon:'🍷',nome:'Taças de vinho',desc:'Kit com 6 ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:14,icon:'🥂',nome:'Taças de espumante',desc:'Kit com 6 ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:15,icon:'☕',nome:'Xícaras de café',desc:'Kit com 6',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:16,icon:'🫖',nome:'Canecas',desc:'Kit de canecas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:17,icon:'🥄',nome:'Talheres de servir',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:18,icon:'🥛',nome:'Jarra de vidro',desc:'Para suco ou água',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:19,icon:'🪣',nome:'Bandejas',desc:'Kit de bandejas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:20,icon:'🗑️',nome:'Lixeira',desc:'Com tampa inox ou preta',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:21,icon:'🍝',nome:'Escorredor de macarrão',desc:'Inox ou plástico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:22,icon:'🧀',nome:'Ralador',desc:'Multifuncional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:23,icon:'🥫',nome:'Abridor de latas e garrafas',desc:'Kit abridor',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:24,icon:'🥕',nome:'Descascador de legumes',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:25,icon:'🧄',nome:'Espremedor de alho',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:26,icon:'🥛',nome:'Colheres e xícaras medidoras',desc:'Kit medidor',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
   {id:'eletro',cor:'#b45309',corBg:'#fef3c7',icon:'⚡',titulo:'Eletrodomésticos',open:false,itens:[
-    {id:27,icon:'📡',img:'https://images.unsplash.com/photo-1574269909862-7e1d70bb8078?w=400&q=80',nome:'Micro-ondas',desc:'Inox ou preto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:28,icon:'💨',img:'https://images.unsplash.com/photo-1625315714687-b63e5f40f5c7?w=400&q=80',nome:'Air Fryer',desc:'Capacidade 4L+',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:29,icon:'☕',img:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80',nome:'Cafeteira elétrica',desc:'30 xícaras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:30,icon:'🫘',img:'https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=400&q=80',nome:'Cafeteira de cápsulas',desc:'Nespresso ou Dolce Gusto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:31,icon:'🥪',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Sanduicheira',desc:'Antiaderente',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:32,icon:'🥩',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Grill elétrico',desc:'Antiaderente',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:33,icon:'🍚',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Panela elétrica de arroz',desc:'Capacidade 5 xícaras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:34,icon:'🥣',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Panela de pressão elétrica',desc:'Multifuncional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:35,icon:'🥣',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Mixer',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:36,icon:'🫙',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Processador de alimentos',desc:'Com acessórios',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:37,icon:'🥗',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Multiprocessador',desc:'Completo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:38,icon:'🍊',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Espremedor de frutas',desc:'Elétrico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:39,icon:'🎂',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Batedeira',desc:'Planetária ou convencional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:40,icon:'🍞',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Máquina de pão',desc:'Automática',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:41,icon:'💧',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Purificador de água',desc:'Gelada e natural',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:42,icon:'🌀',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Aspirador de pó',desc:'Sem fio portátil',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:43,icon:'🧹',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Aspirador vertical',desc:'Sem fio',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:44,icon:'🤖',img:'https://images.unsplash.com/photo-1558618047-f4e60cef0426?w=400&q=80',nome:'Robô aspirador',desc:'Automático',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:27,icon:'📡',nome:'Micro-ondas',desc:'Inox ou preto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:28,icon:'💨',nome:'Air Fryer',desc:'Capacidade 4L+',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:29,icon:'☕',nome:'Cafeteira elétrica',desc:'30 xícaras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:30,icon:'🫘',nome:'Cafeteira de cápsulas',desc:'Nespresso ou Dolce Gusto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:31,icon:'🥪',nome:'Sanduicheira',desc:'Antiaderente',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:32,icon:'🥩',nome:'Grill elétrico',desc:'Antiaderente',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:33,icon:'🍚',nome:'Panela elétrica de arroz',desc:'Capacidade 5 xícaras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:34,icon:'🥣',nome:'Panela de pressão elétrica',desc:'Multifuncional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:35,icon:'🥣',nome:'Mixer',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:36,icon:'🫙',nome:'Processador de alimentos',desc:'Com acessórios',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:37,icon:'🥗',nome:'Multiprocessador',desc:'Completo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:38,icon:'🍊',nome:'Espremedor de frutas',desc:'Elétrico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:39,icon:'🎂',nome:'Batedeira',desc:'Planetária ou convencional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:40,icon:'🍞',nome:'Máquina de pão',desc:'Automática',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:41,icon:'💧',nome:'Purificador de água',desc:'Gelada e natural',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:42,icon:'🌀',nome:'Aspirador de pó',desc:'Sem fio portátil',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:43,icon:'🧹',nome:'Aspirador vertical',desc:'Sem fio',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:44,icon:'🤖',nome:'Robô aspirador',desc:'Automático',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
   {id:'sala',cor:'#2e7d32',corBg:'#e8f5e9',icon:'🛋️',titulo:'Sala',open:false,itens:[
-    {id:45,icon:'🛋️',img:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&q=80',nome:'Sofá',desc:'2 ou 3 lugares',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:46,icon:'🪑',img:'https://images.unsplash.com/photo-1449247709967-d4461a6a6103?w=400&q=80',nome:'Mesa de jantar',desc:'4 a 6 lugares',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:47,icon:'🟫',img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80',nome:'Tapete',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:48,icon:'🪟',img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&q=80',nome:'Cortinas',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:49,icon:'🟦',img:'https://images.unsplash.com/photo-1567016432779-094069958ea5?w=400&q=80',nome:'Almofadas',desc:'Kit decorativo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:50,icon:'🧶',img:'https://images.unsplash.com/photo-1580301762395-21ce84d00bc6?w=400&q=80',nome:'Manta para sofá',desc:'Soft ou tricô',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:51,icon:'💡',img:'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&q=80',nome:'Luminária',desc:'De chão ou mesa',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:52,icon:'🖼️',img:'https://images.unsplash.com/photo-1513519245088-0e12902e35ca?w=400&q=80',nome:'Quadros',desc:'Decorativos',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:53,icon:'🪞',img:'https://images.unsplash.com/photo-1618220179428-22790b461013?w=400&q=80',nome:'Espelho decorativo',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:45,icon:'🛋️',nome:'Sofá',desc:'2 ou 3 lugares',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:46,icon:'🪑',nome:'Mesa de jantar',desc:'4 a 6 lugares',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:47,icon:'🟫',nome:'Tapete',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:48,icon:'🪟',nome:'Cortinas',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:49,icon:'🟦',nome:'Almofadas',desc:'Kit decorativo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:50,icon:'🧶',nome:'Manta para sofá',desc:'Soft ou tricô',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:51,icon:'💡',nome:'Luminária',desc:'De chão ou mesa',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:52,icon:'🖼️',nome:'Quadros',desc:'Decorativos',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:53,icon:'🪞',nome:'Espelho decorativo',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
   {id:'quarto',cor:'#7b5ea7',corBg:'#ede7f6',icon:'🛏️',titulo:'Quarto (Cama Queen)',open:false,itens:[
-    {id:54,icon:'🛏️',img:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80',nome:'Jogos de lençol Queen',desc:'300 fios ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:55,icon:'🌡️',img:'https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=400&q=80',nome:'Edredom Queen',desc:'Para casal',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:56,icon:'🛌',img:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80',nome:'Colcha / Cobre-leito Queen',desc:'Para casal',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:57,icon:'🧸',img:'https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=80',nome:'Protetor de colchão Queen',desc:'Impermeável',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:58,icon:'😴',img:'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=400&q=80',nome:'Travesseiros',desc:'Par de travesseiros',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:59,icon:'🛡️',img:'https://images.unsplash.com/photo-1584100936595-c0654b55a2e2?w=400&q=80',nome:'Protetores de travesseiro',desc:'Par',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:60,icon:'🪑',img:'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&q=80',nome:'Criados-mudos',desc:'Par',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:61,icon:'💡',img:'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=400&q=80',nome:'Abajures',desc:'Par para criados-mudos',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:62,icon:'🚪',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',nome:'Guarda-roupa',desc:'Com espelho',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:63,icon:'🗄️',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',nome:'Cômoda',desc:'Com gavetas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:64,icon:'🪝',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',nome:'Cabides',desc:'Kit de cabides',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:65,icon:'🪟',img:'https://images.unsplash.com/photo-1513694203232-719a280e022f?w=400&q=80',nome:'Cortinas',desc:'Para quarto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:66,icon:'🟫',img:'https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=400&q=80',nome:'Tapete',desc:'Para quarto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:54,icon:'🛏️',nome:'Jogos de lençol Queen',desc:'300 fios ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:55,icon:'🌡️',nome:'Edredom Queen',desc:'Para casal',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:56,icon:'🛌',nome:'Colcha / Cobre-leito Queen',desc:'Para casal',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:57,icon:'🧸',nome:'Protetor de colchão Queen',desc:'Impermeável',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:58,icon:'😴',nome:'Travesseiros',desc:'Par de travesseiros',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:59,icon:'🛡️',nome:'Protetores de travesseiro',desc:'Par',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:60,icon:'🪑',nome:'Criados-mudos',desc:'Par',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:61,icon:'💡',nome:'Abajures',desc:'Par para criados-mudos',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:62,icon:'🚪',nome:'Guarda-roupa',desc:'Com espelho',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:63,icon:'🗄️',nome:'Cômoda',desc:'Com gavetas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:64,icon:'🪝',nome:'Cabides',desc:'Kit de cabides',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:65,icon:'🪟',nome:'Cortinas',desc:'Para quarto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:66,icon:'🟫',nome:'Tapete',desc:'Para quarto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
   {id:'banho',cor:'#0288d1',corBg:'#e1f5fe',icon:'🚿',titulo:'Banheiro',open:false,itens:[
-    {id:67,icon:'🛁',img:'https://images.unsplash.com/photo-1583845112203-29329902332e?w=400&q=80',nome:'Jogo de toalhas',desc:'Banho e rosto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:68,icon:'🟫',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',nome:'Tapete de banheiro',desc:'Antiderrapante',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:69,icon:'🗑️',img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',nome:'Lixeira',desc:'Com tampa inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:70,icon:'🧴',img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',nome:'Porta-sabonete líquido',desc:'Inox ou cerâmica',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:71,icon:'🪥',img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',nome:'Porta-escovas',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:72,icon:'🧺',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',nome:'Cesto de roupas',desc:'Com tampa',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:79,icon:'🪣',img:'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&q=80',nome:'Kit Banheiro',desc:'Acessórios completos inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:67,icon:'🛁',nome:'Jogo de toalhas',desc:'Banho e rosto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:68,icon:'🟫',nome:'Tapete de banheiro',desc:'Antiderrapante',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:69,icon:'🗑️',nome:'Lixeira',desc:'Com tampa inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:70,icon:'🧴',nome:'Porta-sabonete líquido',desc:'Inox ou cerâmica',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:71,icon:'🪥',nome:'Porta-escovas',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:72,icon:'🧺',nome:'Cesto de roupas',desc:'Com tampa',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:79,icon:'🪣',nome:'Kit Banheiro',desc:'Acessórios completos inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
   {id:'lavanderia',cor:'#0097a7',corBg:'#e0f7fa',icon:'🧺',titulo:'Lavanderia',open:false,itens:[
-    {id:73,icon:'👕',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',nome:'Ferro de passar',desc:'A vapor 2400W',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:74,icon:'🪵',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',nome:'Tábua de passar',desc:'Com suporte',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:75,icon:'🌂',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',nome:'Varal',desc:'De chão ou parede',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:76,icon:'🪣',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',nome:'Baldes',desc:'Kit de baldes',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:77,icon:'🧹',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',nome:'Mop',desc:'Com cabo telescópico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:78,icon:'📦',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',nome:'Cestos organizadores',desc:'Para lavanderia',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:73,icon:'👕',nome:'Ferro de passar',desc:'A vapor 2400W',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:74,icon:'🪵',nome:'Tábua de passar',desc:'Com suporte',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:75,icon:'🌂',nome:'Varal',desc:'De chão ou parede',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:76,icon:'🪣',nome:'Baldes',desc:'Kit de baldes',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:77,icon:'🧹',nome:'Mop',desc:'Com cabo telescópico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:78,icon:'📦',nome:'Cestos organizadores',desc:'Para lavanderia',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
 ];
 
@@ -210,7 +210,7 @@ function App(){
   };
 
   useEffect(()=>{
-    const evento=new Date('2025-11-14T20:00:00');
+    const evento=new Date('2026-11-14T20:00:00');
     const tick=()=>{
       const agora=new Date();
       const diff=evento-agora;
@@ -344,13 +344,13 @@ function App(){
 
       {/* HERO */}
       <div style={{background:AZUL,color:'#fff',textAlign:'center',padding:'3.5rem 1.5rem 3rem'}}>
-        <p style={{fontSize:'11px',letterSpacing:'4px',textTransform:'uppercase',color:DOURADO,marginBottom:'.8rem'}}>✦ Chá de Panelas ✦</p>
+        <p style={{fontSize:'11px',letterSpacing:'4px',textTransform:'uppercase',color:DOURADO,marginBottom:'.8rem'}}>✦ Lista de Presentes ✦</p>
         <h1 style={{fontFamily:"'Playfair Display',serif",fontSize:'clamp(2rem,5vw,3.5rem)',fontWeight:400,lineHeight:1.1}}>
           Werberth<br/><em style={{fontStyle:'italic',color:DOURADO}}>&</em> Dayane
         </h1>
         <div style={{width:50,height:1,background:DOURADO,margin:'1.25rem auto'}}/>
         <p style={{fontSize:'15px',color:'rgba(255,255,255,.7)',fontWeight:300}}>Venha celebrar conosco este momento tão especial</p>
-        <p style={{fontSize:'13px',letterSpacing:'3px',marginTop:'1rem',color:'rgba(255,255,255,.5)'}}>14 · 11 · 2025</p>
+        <p style={{fontSize:'13px',letterSpacing:'3px',marginTop:'1rem',color:'rgba(255,255,255,.5)'}}>14 · 11 · 2026</p>
 
         {/* CONTADOR */}
         <div style={{display:'flex',justifyContent:'center',gap:12,marginTop:'2rem',flexWrap:'wrap'}}>
@@ -421,15 +421,8 @@ function App(){
                         return(
                           <div key={item.id} style={{background:res?'#fafafa':'#fff',border:'1px solid #ebebeb',borderRadius:12,overflow:'hidden'}}>
                             <div style={{height:3,background:amb.cor}}/>
-                            {/* FOTO */}
-                            <div style={{height:120,background:'#f5f5f5',overflow:'hidden',position:'relative',display:'flex',alignItems:'center',justifyContent:'center'}}>
-                              {item.img
-                                ? <img src={item.img} alt={item.nome} style={{width:'100%',height:'100%',objectFit:'cover',filter:res?'grayscale(50%)brightness(1.1)':'none'}} onError={e=>{e.target.style.display='none';e.target.nextSibling.style.display='flex';}} />
-                                : null}
-                              <div style={{display:item.img?'none':'flex',width:'100%',height:'100%',alignItems:'center',justifyContent:'center',fontSize:'2rem'}}>{item.icon}</div>
-                              {res&&<div style={{position:'absolute',inset:0,background:'rgba(0,0,0,.35)',display:'flex',alignItems:'center',justifyContent:'center'}}><span style={{background:'#e65100',color:'#fff',borderRadius:20,padding:'4px 12px',fontSize:'10px',fontWeight:700}}>✓ Reservado</span></div>}
-                            </div>
-                            <div style={{padding:'.7rem .8rem .8rem'}}>
+                            <div style={{padding:'.85rem .8rem .8rem'}}>
+                              <div style={{fontSize:'1.6rem',marginBottom:'.35rem'}}>{item.icon}</div>
                               <div style={{fontSize:'12px',fontWeight:700,color:AZUL,marginBottom:'.1rem'}}>{item.nome}</div>
                               <div style={{fontSize:'10px',color:'#bbb',marginBottom:'.5rem'}}>{item.desc}</div>
                               {res&&<span style={{display:'inline-flex',fontSize:'9px',fontWeight:700,padding:'2px 7px',borderRadius:20,background:'#fff3e0',color:'#e65100',marginBottom:'.5rem'}}>✓ {item.reservadoPor}</span>}
@@ -638,9 +631,9 @@ function App(){
       {/* RODAPÉ */}
       <div style={{background:AZUL,color:'#fff',textAlign:'center',padding:'2rem 1.5rem',marginTop:'1rem'}}>
         <p style={{fontFamily:"'Playfair Display',serif",fontStyle:'italic',fontSize:'1.15rem',color:'rgba(255,255,255,.85)',maxWidth:480,margin:'0 auto .9rem'}}>"A vida a dois começa com pequenos gestos de amor. Obrigado por fazer parte desta história."</p>
-        <div style={{fontSize:'12px',color:DOURADO,letterSpacing:'2px',textTransform:'uppercase'}}>Werberth & Dayane · 14.11.2025</div>
+        <div style={{fontSize:'12px',color:DOURADO,letterSpacing:'2px',textTransform:'uppercase'}}>Werberth & Dayane · 14.11.2026</div>
       </div>
-      <footer style={{textAlign:'center',padding:'1rem',fontSize:'11px',color:'#bbb',background:'#f9f9f9'}}>Feito com ♥ para Werberth & Dayane · Chá de Panelas 2025</footer>
+      <footer style={{textAlign:'center',padding:'1rem',fontSize:'11px',color:'#bbb',background:'#f9f9f9'}}>Desenvolvido por Werberth · Lista de Presentes W&D 2026</footer>
 
       {/* MODAL MAPA */}
       {mapaOpen&&(
