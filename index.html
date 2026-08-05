@@ -176,17 +176,22 @@ function App(){
     const carregar = async () => {
       try {
         const ambData = await fbGet('dados','ambientes');
-        if(ambData) setAmbientes(ambData);
+        if(ambData) setAmbientes(ambData.map(a=>({...a,open:false})));
         const sugData = await fbGet('dados','sugestoes');
         if(sugData) setSugestoes(sugData);
         const jtData = await fbGet('dados','jatemos');
         if(jtData){
           setJaTemos(jtData);
         } else {
-          // Primeira vez: salva a lista inicial no Firebase
+          // Primeira vez: salva a lista inicial no Firebase e atualiza o estado
           await fbSet('dados','jatemos', jaTemosList);
+          setJaTemos(jaTemosList);
         }
-      } catch(e){ console.error('Erro ao carregar:',e); }
+      } catch(e){
+        console.error('Erro ao carregar:',e);
+        // Fallback: usa lista local se Firebase falhar
+        setJaTemos(jaTemosList);
+      }
       setLoading(false);
     };
     carregar();
@@ -437,6 +442,7 @@ function App(){
                                 ?<div style={{background:'#eee',color:'#ccc',borderRadius:8,padding:'.4rem .6rem',fontSize:'10px',textAlign:'center'}}>Reservado ✓</div>
                                 :<div style={{display:'flex',flexDirection:'column',gap:5}}>
                                   <button onClick={()=>{setModal({tipo:'dar',itemId:item.id});setForm({nome:'',msg:'',valor:''}); }} style={{background:AZUL,color:'#fff',border:'none',borderRadius:8,padding:'.6rem .7rem',fontSize:'12px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>🎁 Quero dar este presente (Vou levar)</button>
+                                  <div style={{height:6}}/>
                                   <button onClick={()=>{setModal({tipo:'vaq',itemId:item.id});setForm({nome:'',msg:'',valor:''}); }} style={{background:'#fff',color:AZUL,border:`1.5px solid ${AZUL_CL}`,borderRadius:8,padding:'.55rem .7rem',fontSize:'12px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>🐄 Ajudar a comprar</button>
                                 </div>
                               }
@@ -522,13 +528,8 @@ function App(){
             {jaTemos.map(item=>(
               <div key={item.id} style={{background:'#fafafa',border:'1px solid #ebebeb',borderRadius:12,overflow:'hidden',position:'relative'}}>
                 <div style={{height:3,background:'#aaa'}}/>
-                {/* ÁREA DA FOTO/ÍCONE */}
-                <div style={{height:120,background:'#f0f0f0',display:'flex',alignItems:'center',justifyContent:'center',position:'relative'}}>
-                  <span style={{fontSize:'2.5rem',filter:'grayscale(60%)',opacity:.6}}>{item.icon}</span>
-                  <div style={{position:'absolute',inset:0,background:'rgba(255,255,255,.4)'}}/>
-                  <span style={{position:'absolute',top:8,left:8,background:'#555',color:'#fff',borderRadius:20,padding:'3px 9px',fontSize:'9px',fontWeight:700}}>✓ Já temos</span>
-                </div>
-                <div style={{padding:'.7rem .8rem .8rem'}}>
+                <div style={{padding:'.75rem .8rem .8rem'}}>
+                  <span style={{background:'#555',color:'#fff',borderRadius:20,padding:'3px 9px',fontSize:'9px',fontWeight:700,display:'inline-block',marginBottom:'.5rem'}}>✓ Já temos</span>
                   <div style={{fontSize:'12px',fontWeight:700,color:'#888',marginBottom:'.1rem',textDecoration:'line-through'}}>{item.nome}</div>
                   <div style={{fontSize:'10px',color:'#bbb',marginBottom:'.5rem'}}>{item.desc}</div>
                   {item.frase&&<div style={{fontSize:'10px',color:'#777',fontStyle:'italic',marginBottom:'.55rem',lineHeight:1.35,background:'#f5f5f5',borderRadius:6,padding:'.3rem .5rem'}}>"{item.frase}"</div>}
@@ -538,14 +539,6 @@ function App(){
                 </div>
               </div>
             ))}
-          </div>
-          <div style={{background:AZUL_S,borderRadius:14,padding:'1.5rem'}}>
-            <p style={{fontFamily:"'Playfair Display',serif",fontSize:'1.1rem',color:AZUL,marginBottom:'.3rem'}}>➕ Adicionar item que já tenho</p>
-            <div style={{display:'flex',flexDirection:'column',gap:10,marginTop:'.75rem'}}>
-              <input value={novoItem.nome} onChange={e=>setNovoItem(p=>({...p,nome:e.target.value}))} placeholder="Nome do item (ex: Batedeira)" style={{padding:'.65rem .9rem',border:'1.5px solid #ddd',borderRadius:9,fontSize:'13px',fontFamily:'inherit',outline:'none'}}/>
-              <input value={novoItem.desc} onChange={e=>setNovoItem(p=>({...p,desc:e.target.value}))} placeholder="Observação (opcional)" style={{padding:'.65rem .9rem',border:'1.5px solid #ddd',borderRadius:9,fontSize:'13px',fontFamily:'inherit',outline:'none'}}/>
-              <button onClick={adicionarJaTemos} style={{background:AZUL,color:'#fff',border:'none',borderRadius:9,padding:'.7rem',fontSize:'13px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>Adicionar ✓</button>
-            </div>
           </div>
         </>}
 
