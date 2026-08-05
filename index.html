@@ -147,6 +147,7 @@ const abas=[
   {id:'reservados',label:'Reservados'},
   {id:'jatemos',label:'Já Temos'},
   {id:'sugestao',label:'Vou Levar'},
+  {id:'luademel',label:'🌙 Lua de Mel'},
   {id:'pix',label:'PIX'},
 ];
 
@@ -235,6 +236,30 @@ function App(){
   };
 
   const showToast=(msg)=>{setToast(msg);setTimeout(()=>setToast(''),2800);};
+
+  const gerarQRCode=(valor)=>{
+    if(!valor||Number(valor)<=0){showToast('Informe um valor!');return;}
+    const chave='61993677985';
+    const nome='WERBERTH F G S SILVA';
+    const cidade='BRASILIA';
+    const valorStr=Number(valor).toFixed(2);
+    const f=(id,val)=>{const l=String(val.length).padStart(2,'0');return id+l+val;};
+    const gui=f('00','br.gov.bcb.pix')+f('01',chave);
+    const addData=f('05','***');
+    let payload=f('00','01')+f('26',gui)+'52040000'+'5303986'+f('54',valorStr)+'5802BR'+f('59',nome)+f('60',cidade)+f('62',addData)+'6304';
+    let crc=0xFFFF;
+    for(let i=0;i<payload.length;i++){
+      crc^=payload.charCodeAt(i)<<8;
+      for(let j=0;j<8;j++) crc=(crc&0x8000)?(crc<<1)^0x1021:crc<<1;
+    }
+    payload+=(crc&0xFFFF).toString(16).toUpperCase().padStart(4,'0');
+    const container=document.getElementById('qrcode-container');
+    if(container){
+      const url=`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(payload)}&color=1a4a7a`;
+      container.innerHTML=`<img src="${url}" alt="QR Code PIX" style="width:180px;height:180px;border-radius:8px"/>`;
+    }
+    showToast('✅ QR Code gerado!');
+  };
   const todos=ambientes.flatMap(a=>a.itens);
   const ambDe=(id)=>ambientes.find(a=>a.itens.some(i=>i.id===id));
   const encontrar=(id)=>{for(const a of ambientes){const i=a.itens.find(x=>x.id===id);if(i)return i;}return null;};
@@ -572,6 +597,52 @@ function App(){
           </>}
         </>}
 
+        {/* ===== LUA DE MEL ===== */}
+        {aba==='luademel'&&<>
+          <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.7rem',fontWeight:400,color:AZUL,textAlign:'center',marginBottom:'.3rem'}}>🌙 Lua de Mel</h2>
+          <p style={{textAlign:'center',color:'#aaa',fontSize:'12px',letterSpacing:'1px',marginBottom:'.5rem'}}>AJUDE A REALIZAR O NOSSO SONHO</p>
+          <div style={{width:36,height:1,background:DOURADO,margin:'.5rem auto 1.5rem'}}/>
+
+          {/* Banner divertido */}
+          <div style={{background:'linear-gradient(135deg,#1a4a7a,#0d2d52)',borderRadius:16,padding:'2rem 1.5rem',textAlign:'center',marginBottom:'1.5rem',position:'relative',overflow:'hidden'}}>
+            <div style={{position:'absolute',top:10,right:20,fontSize:'3rem',opacity:.15}}>🌙</div>
+            <div style={{position:'absolute',bottom:10,left:20,fontSize:'2rem',opacity:.15}}>✈️</div>
+            <div style={{fontSize:'2.5rem',marginBottom:'.75rem'}}>🥂🌴✈️</div>
+            <h3 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.4rem',color:'#fff',marginBottom:'.75rem'}}>Nos ajude a voar!</h3>
+            <p style={{fontSize:'13px',color:'rgba(255,255,255,.75)',lineHeight:1.6,maxWidth:480,margin:'0 auto'}}>
+              Já temos o amor garantido, mas a passagem ainda tá no cartão! 😂<br/>
+              Se quiser contribuir com nossa lua de mel, qualquer valor é recebido com muito carinho — e uma dança de samba na chegada! 🕺💃
+            </p>
+          </div>
+
+          {/* Cards de valor */}
+          <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(200px,1fr))',gap:12,marginBottom:'1.5rem'}}>
+            {[
+              {emoji:'☕',titulo:'Um cafezinho lá',valor:50,desc:'Já ajuda a pagar o café da manhã no hotel!'},
+              {emoji:'🍽️',titulo:'Um jantar romântico',valor:150,desc:'Uma jantinha especial pra gente lá!'},
+              {emoji:'🎡',titulo:'Um passeio',valor:300,desc:'Ajuda a pagar um passeio incrível!'},
+              {emoji:'🛏️',titulo:'Uma diária',valor:500,desc:'Uma noite no hotel dos sonhos!'},
+              {emoji:'✈️',titulo:'Parte da passagem',valor:800,desc:'Já ajuda muito na passagem de avião!'},
+              {emoji:'🌴',titulo:'Surpreenda!',valor:null,desc:'Contribua com o valor que quiser do coração!'},
+            ].map((item,i)=>(
+              <div key={i} style={{background:'#fff',border:'1.5px solid #e8e8e8',borderRadius:14,padding:'1.25rem 1rem',textAlign:'center',cursor:'pointer',transition:'all .2s'}}
+                onClick={()=>{trocarAba('pix');setTimeout(()=>{if(item.valor)setValorPix(item.valor);},300);}}>
+                <div style={{fontSize:'2rem',marginBottom:'.5rem'}}>{item.emoji}</div>
+                <div style={{fontSize:'13px',fontWeight:700,color:AZUL,marginBottom:'.25rem'}}>{item.titulo}</div>
+                {item.valor&&<div style={{fontSize:'1.2rem',fontWeight:700,color:DOURADO,marginBottom:'.4rem'}}>R$ {item.valor}</div>}
+                <div style={{fontSize:'11px',color:'#aaa',lineHeight:1.4,marginBottom:'.75rem'}}>{item.desc}</div>
+                <button style={{width:'100%',background:AZUL,color:'#fff',border:'none',borderRadius:8,padding:'.5rem',fontSize:'12px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>
+                  💙 Contribuir {item.valor?`R$ ${item.valor}`:'com outro valor'}
+                </button>
+              </div>
+            ))}
+          </div>
+
+          <div style={{background:AZUL_S,borderRadius:12,padding:'1rem 1.25rem',textAlign:'center',fontSize:'13px',color:'#555'}}>
+            💡 Ao clicar em contribuir você será levado para o PIX com o valor já preenchido!
+          </div>
+        </>}
+
         {/* ===== PIX ===== */}
         {aba==='pix'&&<>
           <h2 style={{fontFamily:"'Playfair Display',serif",fontSize:'1.7rem',fontWeight:400,color:AZUL,textAlign:'center',marginBottom:'.3rem'}}>Contribuição em Dinheiro</h2>
@@ -583,15 +654,16 @@ function App(){
                 <span style={{fontSize:'1.5rem'}}>✅</span>
                 <div>
                   <div style={{fontSize:'13px',fontWeight:700,color:'#2e7d32',marginBottom:'.15rem'}}>Contribuição registrada!</div>
-                  <div style={{fontSize:'12px',color:'#388e3c'}}>Valor sugerido: <strong>R$ {valorPix.toFixed(2)}</strong> — Escaneie o QR Code ou copie a chave PIX para finalizar.</div>
+                  <div style={{fontSize:'12px',color:'#388e3c'}}>Valor: <strong>R$ {Number(valorPix).toFixed(2).replace('.',',')}</strong> — Escaneie o QR Code abaixo para finalizar.</div>
                 </div>
               </div>
             )}
             <div style={{background:'#fff',borderRadius:14,padding:'1rem',border:'1px solid #e0e0e0',textAlign:'center'}}>
-              <div style={{width:160,height:160,background:'#f0f4fa',borderRadius:8,display:'flex',alignItems:'center',justifyContent:'center',flexDirection:'column',color:AZUL}}>
-                <div style={{fontSize:'2rem',marginBottom:8}}>📱</div>
-                <div style={{fontSize:'12px',fontWeight:700}}>QR Code PIX</div>
-                <div style={{fontSize:'11px',color:'#aaa',marginTop:4}}>(61) 99367-7985</div>
+              <div id="qrcode-container" style={{width:180,height:180,display:'flex',alignItems:'center',justifyContent:'center'}}>
+                <div style={{color:'#aaa',fontSize:'12px',textAlign:'center'}}>
+                  <div style={{fontSize:'2rem',marginBottom:8}}>📱</div>
+                  <div>Digite um valor e<br/>clique em Gerar QR Code</div>
+                </div>
               </div>
               <p style={{fontSize:'11px',color:'#aaa',marginTop:'.5rem'}}>Escaneie com qualquer banco</p>
             </div>
@@ -611,7 +683,7 @@ function App(){
                   <button key={v} onClick={()=>setValorPix(v)} style={{background:'#fff',border:`1.5px solid ${AZUL_CL}`,color:AZUL,borderRadius:20,padding:'.28rem .75rem',fontSize:'12px',cursor:'pointer',fontFamily:'inherit'}}>R$ {v}</button>
                 ))}
               </div>
-              <button onClick={()=>showToast('QR Code gerado!')} style={{width:'100%',background:AZUL,color:'#fff',border:'none',borderRadius:10,padding:'.75rem',fontSize:'13px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>Gerar QR Code ✦</button>
+              <button onClick={()=>gerarQRCode(valorPix)} style={{width:'100%',background:AZUL,color:'#fff',border:'none',borderRadius:10,padding:'.75rem',fontSize:'13px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>Gerar QR Code ✦</button>
             </div>
           </div>
         </>}
