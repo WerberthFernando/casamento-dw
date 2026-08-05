@@ -79,6 +79,7 @@ function Login({ onLogin }) {
 function Admin({ onLogout }) {
   const [dados, setDados] = useState(null);
   const [sugestoes, setSugestoes] = useState([]);
+  const [jaTemos, setJaTemos] = useState([]);
   const [loading, setLoading] = useState(true);
   const [aba, setAba] = useState('reservados');
   const [ultima, setUltima] = useState(null);
@@ -87,8 +88,10 @@ function Admin({ onLogout }) {
     try {
       const amb = await fbGet('dados', 'ambientes');
       const sug = await fbGet('dados', 'sugestoes');
+      const jt = await fbGet('dados', 'jatemos');
       setDados(amb);
       setSugestoes(sug || []);
+      setJaTemos(jt || []);
       setUltima(new Date());
     } catch(e) { console.error(e); }
     setLoading(false);
@@ -110,6 +113,7 @@ function Admin({ onLogout }) {
     {id:'reservados', label:'🎁 Reservados', count: reservados.length},
     {id:'vaquinhas', label:'🐄 Vaquinhas', count: vaquinhas.length},
     {id:'vouLevar', label:'🎀 Vou Levar', count: sugestoes.length},
+    {id:'jatemos', label:'🏠 Já Temos', count: null},
     {id:'geral', label:'📊 Geral', count: null},
   ];
 
@@ -172,20 +176,27 @@ function Admin({ onLogout }) {
             : <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(280px,1fr))',gap:12}}>
                 {reservados.map(item => {
                   const amb = ambDe(item.id);
+                  const cancelarReserva = async () => {
+                    if(!window.confirm(`Cancelar a reserva de "${item.nome}" por ${item.reservadoPor}?`)) return;
+                    const novos = dados.map(a=>({...a,itens:a.itens.map(i=>i.id===item.id?{...i,status:'livre',reservadoPor:null,msgReserva:null}:i)}));
+                    setDados(novos);
+                    await fbSet('dados','ambientes',novos);
+                    alert('✓ Reserva cancelada com sucesso!');
+                  };
                   return (
                     <div key={item.id} style={{background:'#fff',borderRadius:12,padding:'1.1rem',boxShadow:'0 2px 8px rgba(0,0,0,.05)',borderLeft:`4px solid ${amb?.cor||'#ccc'}`}}>
                       <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:'.75rem'}}>
-                        <span style={{fontSize:'1.5rem'}}>{item.icon}</span>
                         <div>
                           <div style={{fontSize:'14px',fontWeight:700,color:AZUL}}>{item.nome}</div>
                           <div style={{fontSize:'11px',color:'#aaa'}}>{amb?.titulo}</div>
                         </div>
                         <span style={{marginLeft:'auto',background:'#fff3e0',color:'#e65100',borderRadius:20,padding:'3px 10px',fontSize:'11px',fontWeight:700}}>✓ Reservado</span>
                       </div>
-                      <div style={{background:'#f5f7fa',borderRadius:8,padding:'.6rem .85rem'}}>
+                      <div style={{background:'#f5f7fa',borderRadius:8,padding:'.6rem .85rem',marginBottom:'.75rem'}}>
                         <div style={{fontSize:'13px',fontWeight:700,color:'#333'}}>👤 {item.reservadoPor}</div>
                         {item.msgReserva && <div style={{fontSize:'12px',color:'#666',marginTop:'.3rem',fontStyle:'italic'}}>💬 "{item.msgReserva}"</div>}
                       </div>
+                      <button onClick={cancelarReserva} style={{width:'100%',background:'#fff',color:'#e53935',border:'1.5px solid #ffcdd2',borderRadius:8,padding:'.5rem',fontSize:'12px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>↩️ Cancelar reserva</button>
                     </div>
                   );
                 })}
@@ -255,6 +266,53 @@ function Admin({ onLogout }) {
         )}
 
         {/* GERAL */}
+        {/* JÁ TEMOS */}
+        {aba==='jatemos' && (
+          <div>
+            <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'1rem'}}>
+              <p style={{fontSize:'13px',color:'#aaa'}}>Gerencie os itens que vocês já têm em casa.</p>
+            </div>
+            <div style={{display:'grid',gridTemplateColumns:'repeat(auto-fill,minmax(220px,1fr))',gap:12,marginBottom:'1.5rem'}}>
+              {jaTemos.map(item=>(
+                <div key={item.id} style={{background:'#fff',borderRadius:12,padding:'1rem',boxShadow:'0 2px 8px rgba(0,0,0,.05)',borderLeft:'4px solid #aaa',position:'relative'}}>
+                  <div style={{display:'flex',alignItems:'center',gap:8,marginBottom:'.5rem'}}>
+                    <span style={{fontSize:'1.3rem'}}>{item.icon}</span>
+                    <div style={{fontSize:'14px',fontWeight:700,color:AZUL,textDecoration:'line-through'}}>{item.nome}</div>
+                    <span style={{marginLeft:'auto',background:'#f0f0f0',color:'#888',borderRadius:20,padding:'2px 8px',fontSize:'10px',fontWeight:700}}>✓ Já temos</span>
+                  </div>
+                  {item.frase&&<div style={{fontSize:'11px',color:'#888',fontStyle:'italic',marginBottom:'.6rem'}}>"{item.frase}"</div>}
+                  <button
+                    onClick={async()=>{
+                      if(!window.confirm(`Remover "${item.nome}" da lista?`)) return;
+                      const novos=jaTemos.filter(i=>i.id!==item.id);
+                      setJaTemos(novos);
+                      await fbSet('dados','jatemos',novos);
+                    }}
+                    style={{width:'100%',background:'#fff',color:'#e53935',border:'1.5px solid #ffcdd2',borderRadius:8,padding:'.45rem',fontSize:'12px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}
+                  >🗑️ Remover item</button>
+                </div>
+              ))}
+            </div>
+            <div style={{background:'#f7f9fc',borderRadius:12,padding:'1.25rem'}}>
+              <p style={{fontSize:'13px',fontWeight:700,color:AZUL,marginBottom:'1rem'}}>➕ Adicionar novo item</p>
+              <div style={{display:'flex',gap:10,flexWrap:'wrap'}}>
+                <input id="admin-jt-nome" placeholder="Nome do item" style={{flex:1,padding:'.65rem .9rem',border:'1.5px solid #ddd',borderRadius:9,fontSize:'13px',fontFamily:'inherit',outline:'none',minWidth:180}}/>
+                <button
+                  onClick={async()=>{
+                    const nome=document.getElementById('admin-jt-nome').value.trim();
+                    if(!nome) return;
+                    const novos=[...jaTemos,{id:Date.now(),icon:'✅',nome,desc:'Já temos em casa',frase:''}];
+                    setJaTemos(novos);
+                    await fbSet('dados','jatemos',novos);
+                    document.getElementById('admin-jt-nome').value='';
+                  }}
+                  style={{background:AZUL,color:'#fff',border:'none',borderRadius:9,padding:'.65rem 1.25rem',fontSize:'13px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}
+                >Adicionar</button>
+              </div>
+            </div>
+          </div>
+        )}
+
         {aba==='geral' && dados && (
           <div style={{display:'flex',flexDirection:'column',gap:12}}>
             {dados.map(amb => {
