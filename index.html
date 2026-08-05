@@ -16,7 +16,6 @@
 const { useState, useEffect, useRef } = React;
 
 
-
 // Firebase REST API config
 const PROJECT_ID = "cha-panelas-werberth-dayane";
 const API_KEY = "AIzaSyAmzNIHJMpJyaNZWEhuX4s7CSSUfn86j4E";
@@ -38,111 +37,111 @@ const fbSet = async (col, docId, data) => {
 };
 
 const jaTemosList = [
-  {id:101,icon:'🍳',nome:'Fogão',desc:'Já temos em casa',frase:'Esse já tá aqui! Mas se quiser nos ajudar a pagar a conta de gás... 😂'},
-  {id:102,icon:'🔥',nome:'Forno',desc:'Já temos em casa',frase:'Forno já temos! Mas o bolo do casamento não vai se pagar sozinho 🎂👀'},
-  {id:103,icon:'❄️',nome:'Geladeira',desc:'Já temos em casa',frase:'Geladeira temos, cerveja pra rechear ela... aí já é outra história! 🍺😅'},
-  {id:104,icon:'🫧',nome:'Máquina de lavar',desc:'Já temos em casa',frase:'Roupa suja a gente lava em casa mesmo! Literalmente 😆🧺'},
-  {id:105,icon:'💨',nome:'Depurador de ar',desc:'Já temos em casa',frase:'Já temos! Mas se cozinhar feio, nem ele salva 🤣💨'},
-  {id:106,icon:'⚡',nome:'Liquidificador',desc:'Já temos em casa',frase:'Esse tá na ativa! Mas uma vitamina de ajuda financeira a gente aceita 😜🍌'},
-  {id:107,icon:'🫖',nome:'Chaleira elétrica',desc:'Já temos em casa',frase:'Água quente temos! Agora dinheiro quente... esse a gente precisa! ☕💸'},
-  {id:108,icon:'🍳',nome:'Jogo de panelas',desc:'Já temos em casa',frase:'Panelas temos, talento culinário... ainda estamos desenvolvendo 😂🍳'},
-  {id:109,icon:'🧂',nome:'Porta-temperos',desc:'Já temos em casa',frase:'Temperos guardados! Mas tempero na conta bancária nunca é demais 🧂💰'},
-  {id:110,icon:'🍽️',nome:'Jogo de pratos',desc:'Já temos em casa',frase:'Pratos temos! Agora comida pra colocar neles... bora colaborar? 😂🍽️'},
-  {id:111,icon:'🥤',nome:'Jogo de copos',desc:'Já temos em casa',frase:'Copos cheios de amor! Agora de dinheiro... precisamos da sua ajuda 🥤😅'},
+  {id:101,nome:'Fogão',desc:'Já temos em casa',frase:'Esse já tá aqui! Mas se quiser nos ajudar a pagar a conta de gás... 😂'},
+  {id:102,nome:'Forno',desc:'Já temos em casa',frase:'Forno já temos! Mas o bolo do casamento não vai se pagar sozinho 🎂👀'},
+  {id:103,nome:'Geladeira',desc:'Já temos em casa',frase:'Geladeira temos, cerveja pra rechear ela... aí já é outra história! 🍺😅'},
+  {id:104,nome:'Máquina de lavar',desc:'Já temos em casa',frase:'Roupa suja a gente lava em casa mesmo! Literalmente 😆🧺'},
+  {id:105,nome:'Depurador de ar',desc:'Já temos em casa',frase:'Já temos! Mas se cozinhar feio, nem ele salva 🤣💨'},
+  {id:106,nome:'Liquidificador',desc:'Já temos em casa',frase:'Esse tá na ativa! Mas uma vitamina de ajuda financeira a gente aceita 😜🍌'},
+  {id:107,nome:'Chaleira elétrica',desc:'Já temos em casa',frase:'Água quente temos! Agora dinheiro quente... esse a gente precisa! ☕💸'},
+  {id:108,nome:'Jogo de panelas',desc:'Já temos em casa',frase:'Panelas temos, talento culinário... ainda estamos desenvolvendo 😂🍳'},
+  {id:109,nome:'Porta-temperos',desc:'Já temos em casa',frase:'Temperos guardados! Mas tempero na conta bancária nunca é demais 🧂💰'},
+  {id:110,nome:'Jogo de pratos',desc:'Já temos em casa',frase:'Pratos temos! Agora comida pra colocar neles... bora colaborar? 😂🍽️'},
+  {id:111,nome:'Jogo de copos',desc:'Já temos em casa',frase:'Copos cheios de amor! Agora de dinheiro... precisamos da sua ajuda 🥤😅'},
 
 ];
 
 const ambientesInicial = [
   {id:'cozinha',cor:'#2a2a2a',corBg:'#f0f0f0',icon:'🍳',titulo:'Cozinha',open:false,itens:[
-    {id:1,icon:'🍴',nome:'Faqueiro',desc:'Jogo completo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:2,icon:'🔪',nome:'Jogo de facas',desc:'Aço inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:3,icon:'🪵',nome:'Tábuas de corte',desc:'Kit com tábuas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:4,icon:'🥘',nome:'Assadeiras',desc:'Kit de assadeiras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:5,icon:'🎂',nome:'Formas para bolo',desc:'Kit de formas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:6,icon:'🍱',nome:'Travessas',desc:'Porcelana ou vidro',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:7,icon:'🥣',nome:'Bowls (tigelas)',desc:'Kit de tigelas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:8,icon:'🫙',nome:'Potes herméticos',desc:'Kit variado',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:9,icon:'📦',nome:'Potes organizadores geladeira',desc:'Para organizar a geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:10,icon:'🗄️',nome:'Gavetas organizadoras geladeira',desc:'Para gavetas da geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:11,icon:'🥦',nome:'Organizadores frutas e legumes',desc:'Para geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:12,icon:'🧺',nome:'Escorredor de louça',desc:'Inox ou plástico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:13,icon:'🍷',nome:'Taças de vinho',desc:'Kit com 6 ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:14,icon:'🥂',nome:'Taças de espumante',desc:'Kit com 6 ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:15,icon:'☕',nome:'Xícaras de café',desc:'Kit com 6',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:16,icon:'🫖',nome:'Canecas',desc:'Kit de canecas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:17,icon:'🥄',nome:'Talheres de servir',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:18,icon:'🥛',nome:'Jarra de vidro',desc:'Para suco ou água',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:19,icon:'🪣',nome:'Bandejas',desc:'Kit de bandejas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:20,icon:'🗑️',nome:'Lixeira',desc:'Com tampa inox ou preta',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:21,icon:'🍝',nome:'Escorredor de macarrão',desc:'Inox ou plástico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:22,icon:'🧀',nome:'Ralador',desc:'Multifuncional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:23,icon:'🥫',nome:'Abridor de latas e garrafas',desc:'Kit abridor',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:24,icon:'🥕',nome:'Descascador de legumes',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:25,icon:'🧄',nome:'Espremedor de alho',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:26,icon:'🥛',nome:'Colheres e xícaras medidoras',desc:'Kit medidor',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:1,nome:'Faqueiro',desc:'Jogo completo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:2,nome:'Jogo de facas',desc:'Aço inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:3,nome:'Tábuas de corte',desc:'Kit com tábuas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:4,nome:'Assadeiras',desc:'Kit de assadeiras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:5,nome:'Formas para bolo',desc:'Kit de formas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:6,nome:'Travessas',desc:'Porcelana ou vidro',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:7,nome:'Bowls (tigelas)',desc:'Kit de tigelas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:8,nome:'Potes herméticos',desc:'Kit variado',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:9,nome:'Potes organizadores geladeira',desc:'Para organizar a geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:10,nome:'Gavetas organizadoras geladeira',desc:'Para gavetas da geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:11,nome:'Organizadores frutas e legumes',desc:'Para geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:12,nome:'Escorredor de louça',desc:'Inox ou plástico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:13,nome:'Taças de vinho',desc:'Kit com 6 ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:14,nome:'Taças de espumante',desc:'Kit com 6 ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:15,nome:'Xícaras de café',desc:'Kit com 6',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:16,nome:'Canecas',desc:'Kit de canecas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:17,nome:'Talheres de servir',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:18,nome:'Jarra de vidro',desc:'Para suco ou água',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:19,nome:'Bandejas',desc:'Kit de bandejas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:20,nome:'Lixeira',desc:'Com tampa inox ou preta',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:21,nome:'Escorredor de macarrão',desc:'Inox ou plástico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:22,nome:'Ralador',desc:'Multifuncional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:23,nome:'Abridor de latas e garrafas',desc:'Kit abridor',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:24,nome:'Descascador de legumes',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:25,nome:'Espremedor de alho',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:26,nome:'Colheres e xícaras medidoras',desc:'Kit medidor',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
   {id:'eletro',cor:'#b45309',corBg:'#fef3c7',icon:'⚡',titulo:'Eletrodomésticos',open:false,itens:[
-    {id:27,icon:'📡',nome:'Micro-ondas',desc:'Inox ou preto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:28,icon:'💨',nome:'Air Fryer',desc:'Capacidade 4L+',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:29,icon:'☕',nome:'Cafeteira elétrica',desc:'30 xícaras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:30,icon:'🫘',nome:'Cafeteira de cápsulas',desc:'Nespresso ou Dolce Gusto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:31,icon:'🥪',nome:'Sanduicheira',desc:'Antiaderente',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:32,icon:'🥩',nome:'Grill elétrico',desc:'Antiaderente',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:33,icon:'🍚',nome:'Panela elétrica de arroz',desc:'Capacidade 5 xícaras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:34,icon:'🥣',nome:'Panela de pressão elétrica',desc:'Multifuncional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:35,icon:'🥣',nome:'Mixer',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:36,icon:'🫙',nome:'Processador de alimentos',desc:'Com acessórios',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:37,icon:'🥗',nome:'Multiprocessador',desc:'Completo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:38,icon:'🍊',nome:'Espremedor de frutas',desc:'Elétrico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:39,icon:'🎂',nome:'Batedeira',desc:'Planetária ou convencional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:40,icon:'🍞',nome:'Máquina de pão',desc:'Automática',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:41,icon:'💧',nome:'Purificador de água',desc:'Gelada e natural',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:42,icon:'🌀',nome:'Aspirador de pó',desc:'Sem fio portátil',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:43,icon:'🧹',nome:'Aspirador vertical',desc:'Sem fio',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:44,icon:'🤖',nome:'Robô aspirador',desc:'Automático',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:27,nome:'Micro-ondas',desc:'Inox ou preto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:28,nome:'Air Fryer',desc:'Capacidade 4L+',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:29,nome:'Cafeteira elétrica',desc:'30 xícaras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:30,nome:'Cafeteira de cápsulas',desc:'Nespresso ou Dolce Gusto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:31,nome:'Sanduicheira',desc:'Antiaderente',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:32,nome:'Grill elétrico',desc:'Antiaderente',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:33,nome:'Panela elétrica de arroz',desc:'Capacidade 5 xícaras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:34,nome:'Panela de pressão elétrica',desc:'Multifuncional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:35,nome:'Mixer',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:36,nome:'Processador de alimentos',desc:'Com acessórios',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:37,nome:'Multiprocessador',desc:'Completo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:38,nome:'Espremedor de frutas',desc:'Elétrico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:39,nome:'Batedeira',desc:'Planetária ou convencional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:40,nome:'Máquina de pão',desc:'Automática',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:41,nome:'Purificador de água',desc:'Gelada e natural',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:42,nome:'Aspirador de pó',desc:'Sem fio portátil',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:43,nome:'Aspirador vertical',desc:'Sem fio',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:44,nome:'Robô aspirador',desc:'Automático',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
   {id:'sala',cor:'#2e7d32',corBg:'#e8f5e9',icon:'🛋️',titulo:'Sala',open:false,itens:[
-    {id:45,icon:'🛋️',nome:'Sofá',desc:'2 ou 3 lugares',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:46,icon:'🪑',nome:'Mesa de jantar',desc:'4 a 6 lugares',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:47,icon:'🟫',nome:'Tapete',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:48,icon:'🪟',nome:'Cortinas',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:49,icon:'🟦',nome:'Almofadas',desc:'Kit decorativo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:50,icon:'🧶',nome:'Manta para sofá',desc:'Soft ou tricô',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:51,icon:'💡',nome:'Luminária',desc:'De chão ou mesa',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:52,icon:'🖼️',nome:'Quadros',desc:'Decorativos',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:53,icon:'🪞',nome:'Espelho decorativo',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:45,nome:'Sofá',desc:'2 ou 3 lugares',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:46,nome:'Mesa de jantar',desc:'4 a 6 lugares',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:47,nome:'Tapete',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:48,nome:'Cortinas',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:49,nome:'Almofadas',desc:'Kit decorativo',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:50,nome:'Manta para sofá',desc:'Soft ou tricô',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:51,nome:'Luminária',desc:'De chão ou mesa',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:52,nome:'Quadros',desc:'Decorativos',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:53,nome:'Espelho decorativo',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
   {id:'quarto',cor:'#7b5ea7',corBg:'#ede7f6',icon:'🛏️',titulo:'Quarto (Cama Queen)',open:false,itens:[
-    {id:54,icon:'🛏️',nome:'Jogos de lençol Queen',desc:'300 fios ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:55,icon:'🌡️',nome:'Edredom Queen',desc:'Para casal',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:56,icon:'🛌',nome:'Colcha / Cobre-leito Queen',desc:'Para casal',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:57,icon:'🧸',nome:'Protetor de colchão Queen',desc:'Impermeável',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:58,icon:'😴',nome:'Travesseiros',desc:'Par de travesseiros',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:59,icon:'🛡️',nome:'Protetores de travesseiro',desc:'Par',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:60,icon:'🪑',nome:'Criados-mudos',desc:'Par',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:61,icon:'💡',nome:'Abajures',desc:'Par para criados-mudos',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:62,icon:'🚪',nome:'Guarda-roupa',desc:'Com espelho',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:63,icon:'🗄️',nome:'Cômoda',desc:'Com gavetas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:64,icon:'🪝',nome:'Cabides',desc:'Kit de cabides',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:65,icon:'🪟',nome:'Cortinas',desc:'Para quarto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:66,icon:'🟫',nome:'Tapete',desc:'Para quarto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:54,nome:'Jogos de lençol Queen',desc:'300 fios ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:55,nome:'Edredom Queen',desc:'Para casal',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:56,nome:'Colcha / Cobre-leito Queen',desc:'Para casal',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:57,nome:'Protetor de colchão Queen',desc:'Impermeável',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:58,nome:'Travesseiros',desc:'Par de travesseiros',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:59,nome:'Protetores de travesseiro',desc:'Par',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:60,nome:'Criados-mudos',desc:'Par',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:61,nome:'Abajures',desc:'Par para criados-mudos',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:62,nome:'Guarda-roupa',desc:'Com espelho',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:63,nome:'Cômoda',desc:'Com gavetas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:64,nome:'Cabides',desc:'Kit de cabides',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:65,nome:'Cortinas',desc:'Para quarto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:66,nome:'Tapete',desc:'Para quarto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
   {id:'banho',cor:'#0288d1',corBg:'#e1f5fe',icon:'🚿',titulo:'Banheiro',open:false,itens:[
-    {id:67,icon:'🛁',nome:'Jogo de toalhas',desc:'Banho e rosto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:68,icon:'🟫',nome:'Tapete de banheiro',desc:'Antiderrapante',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:69,icon:'🗑️',nome:'Lixeira',desc:'Com tampa inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:70,icon:'🧴',nome:'Porta-sabonete líquido',desc:'Inox ou cerâmica',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:71,icon:'🪥',nome:'Porta-escovas',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:72,icon:'🧺',nome:'Cesto de roupas',desc:'Com tampa',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:79,icon:'🪣',nome:'Kit Banheiro',desc:'Acessórios completos inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:67,nome:'Jogo de toalhas',desc:'Banho e rosto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:68,nome:'Tapete de banheiro',desc:'Antiderrapante',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:69,nome:'Lixeira',desc:'Com tampa inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:70,nome:'Porta-sabonete líquido',desc:'Inox ou cerâmica',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:71,nome:'Porta-escovas',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:72,nome:'Cesto de roupas',desc:'Com tampa',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:79,nome:'Kit Banheiro',desc:'Acessórios completos inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
   {id:'lavanderia',cor:'#0097a7',corBg:'#e0f7fa',icon:'🧺',titulo:'Lavanderia',open:false,itens:[
-    {id:73,icon:'👕',nome:'Ferro de passar',desc:'A vapor 2400W',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:74,icon:'🪵',nome:'Tábua de passar',desc:'Com suporte',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:75,icon:'🌂',nome:'Varal',desc:'De chão ou parede',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:76,icon:'🪣',nome:'Baldes',desc:'Kit de baldes',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:77,icon:'🧹',nome:'Mop',desc:'Com cabo telescópico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:78,icon:'📦',nome:'Cestos organizadores',desc:'Para lavanderia',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:73,nome:'Ferro de passar',desc:'A vapor 2400W',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:74,nome:'Tábua de passar',desc:'Com suporte',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:75,nome:'Varal',desc:'De chão ou parede',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:76,nome:'Baldes',desc:'Kit de baldes',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:77,nome:'Mop',desc:'Com cabo telescópico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:78,nome:'Cestos organizadores',desc:'Para lavanderia',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
 ];
 
@@ -424,7 +423,6 @@ function App(){
                           <div key={item.id} style={{background:res?'#fafafa':'#fff',border:'1px solid #ebebeb',borderRadius:12,overflow:'hidden'}}>
                             <div style={{height:3,background:amb.cor}}/>
                             <div style={{padding:'.85rem .8rem .8rem'}}>
-                              <div style={{fontSize:'1.6rem',marginBottom:'.35rem'}}>{item.icon}</div>
                               <div style={{fontSize:'12px',fontWeight:700,color:AZUL,marginBottom:'.1rem'}}>{item.nome}</div>
                               <div style={{fontSize:'10px',color:'#bbb',marginBottom:'.5rem'}}>{item.desc}</div>
                               {res&&<span style={{display:'inline-flex',fontSize:'9px',fontWeight:700,padding:'2px 7px',borderRadius:20,background:'#fff3e0',color:'#e65100',marginBottom:'.5rem'}}>✓ {item.reservadoPor}</span>}
@@ -434,8 +432,8 @@ function App(){
                               {res
                                 ?<div style={{background:'#eee',color:'#ccc',borderRadius:8,padding:'.4rem .6rem',fontSize:'10px',textAlign:'center'}}>Reservado ✓</div>
                                 :<div style={{display:'flex',flexDirection:'column',gap:5}}>
-                                  <button onClick={()=>{setModal({tipo:'dar',itemId:item.id});setForm({nome:'',msg:'',valor:''}); }} style={{background:AZUL,color:'#fff',border:'none',borderRadius:8,padding:'.4rem .6rem',fontSize:'10px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>🎁 Quero dar este presente (Vou levar)</button>
-                                  <button onClick={()=>{setModal({tipo:'vaq',itemId:item.id});setForm({nome:'',msg:'',valor:''}); }} style={{background:'#fff',color:AZUL,border:`1.5px solid ${AZUL_CL}`,borderRadius:8,padding:'.35rem .6rem',fontSize:'10px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>🐄 Ajudar a comprar</button>
+                                  <button onClick={()=>{setModal({tipo:'dar',itemId:item.id});setForm({nome:'',msg:'',valor:''}); }} style={{background:AZUL,color:'#fff',border:'none',borderRadius:8,padding:'.6rem .7rem',fontSize:'12px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>🎁 Quero dar este presente (Vou levar)</button>
+                                  <button onClick={()=>{setModal({tipo:'vaq',itemId:item.id});setForm({nome:'',msg:'',valor:''}); }} style={{background:'#fff',color:AZUL,border:`1.5px solid ${AZUL_CL}`,borderRadius:8,padding:'.55rem .7rem',fontSize:'12px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>🐄 Ajudar a comprar</button>
                                 </div>
                               }
                             </div>
@@ -480,13 +478,21 @@ function App(){
                   <div key={item.id} style={{background:'#fafafa',border:'1px solid #ebebeb',borderRadius:12,overflow:'hidden'}}>
                     <div style={{height:3,background:amb?.cor||'#ccc'}}/>
                     <div style={{padding:'.9rem .85rem'}}>
-                      <div style={{fontSize:'1.3rem',marginBottom:'.3rem'}}>{item.icon}</div>
                       <div style={{fontSize:'13px',fontWeight:700,color:AZUL,marginBottom:'.1rem'}}>{item.nome}</div>
                       <div style={{fontSize:'11px',color:'#bbb',marginBottom:'.5rem'}}>{item.desc}</div>
                       <span style={{display:'inline-flex',fontSize:'10px',fontWeight:700,padding:'3px 8px',borderRadius:20,background:'#fff3e0',color:'#e65100',marginBottom:'.4rem'}}>✓ Reservado</span>
                       <div style={{fontSize:'12px',color:'#555',marginTop:'.3rem'}}>por <strong>{item.reservadoPor}</strong></div>
                       {item.msgReserva&&<div style={{fontSize:'10px',color:'#777',background:'#f5f7fa',borderRadius:6,padding:'.28rem .5rem',marginTop:'.4rem',fontStyle:'italic'}}>💬 "{item.msgReserva}"</div>}
-                      <div style={{fontSize:'10px',color:'#bbb',marginTop:'.4rem'}}>{amb?.icon} {amb?.titulo}</div>
+                      <div style={{fontSize:'10px',color:'#bbb',marginTop:'.4rem',marginBottom:'.6rem'}}>{amb?.icon} {amb?.titulo}</div>
+                      <button
+                        onClick={()=>{
+                          const novos=ambientes.map(a=>({...a,itens:a.itens.map(i=>i.id===item.id?{...i,status:'livre',reservadoPor:null,msgReserva:null}:i)}));
+                          setAmbientes(novos);
+                          salvarAmbientes(novos);
+                          showToast('↩️ Reserva de '+item.nome+' cancelada!');
+                        }}
+                        style={{width:'100%',background:'#fff',color:'#e53935',border:'1.5px solid #ffcdd2',borderRadius:8,padding:'.45rem .6rem',fontSize:'11px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}
+                      >↩️ Cancelar reserva</button>
                     </div>
                   </div>
                 );
@@ -697,7 +703,6 @@ function App(){
     </div>
   );
 }
-
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(<App />);
