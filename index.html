@@ -62,11 +62,9 @@ const ambientesInicial = [
     {id:7,nome:'Bowls (tigelas)',desc:'Kit de tigelas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:8,nome:'Potes herméticos',desc:'Kit variado',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:9,nome:'Potes organizadores geladeira',desc:'Para organizar a geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:10,nome:'Gavetas organizadoras geladeira',desc:'Para gavetas da geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:11,nome:'Organizadores frutas e legumes',desc:'Para geladeira',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:12,nome:'Escorredor de louça',desc:'Inox ou plástico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:13,nome:'Taças de vinho',desc:'Kit com 6 ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:14,nome:'Taças de espumante',desc:'Kit com 6 ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:15,nome:'Xícaras de café',desc:'Kit com 6',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:16,nome:'Canecas',desc:'Kit de canecas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:17,nome:'Talheres de servir',desc:'Inox',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
@@ -82,7 +80,7 @@ const ambientesInicial = [
   ]},
   {id:'eletro',cor:'#b45309',corBg:'#fef3c7',icon:'⚡',titulo:'Eletrodomésticos',open:false,itens:[
     {id:27,nome:'Micro-ondas',desc:'Inox ou preto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:28,nome:'Air Fryer',desc:'Capacidade 4L+',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:28,nome:'Air Fryer',desc:'Elétrica',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:29,nome:'Cafeteira elétrica',desc:'30 xícaras',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:30,nome:'Cafeteira de cápsulas',desc:'Nespresso ou Dolce Gusto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:31,nome:'Sanduicheira',desc:'Antiaderente',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
@@ -96,8 +94,8 @@ const ambientesInicial = [
     {id:39,nome:'Batedeira',desc:'Planetária ou convencional',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:40,nome:'Máquina de pão',desc:'Automática',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:41,nome:'Purificador de água',desc:'Gelada e natural',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:42,nome:'Aspirador de pó',desc:'Sem fio portátil',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:43,nome:'Aspirador vertical',desc:'Sem fio',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:42,nome:'Aspirador de pó',desc:'Portátil',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:43,nome:'Aspirador vertical',desc:'Vertical',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:44,nome:'Robô aspirador',desc:'Automático',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
   {id:'sala',cor:'#2e7d32',corBg:'#e8f5e9',icon:'🛋️',titulo:'Sala',open:false,itens:[
@@ -110,6 +108,7 @@ const ambientesInicial = [
     {id:51,nome:'Luminária',desc:'De chão ou mesa',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:52,nome:'Quadros',desc:'Decorativos',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:53,nome:'Espelho decorativo',desc:'Para sala',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
+    {id:80,nome:'Televisão',desc:'Smart TV',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
   {id:'quarto',cor:'#7b5ea7',corBg:'#ede7f6',icon:'🛏️',titulo:'Quarto (Cama Queen)',open:false,itens:[
     {id:54,nome:'Jogos de lençol Queen',desc:'300 fios ou mais',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
@@ -118,10 +117,7 @@ const ambientesInicial = [
     {id:57,nome:'Protetor de colchão Queen',desc:'Impermeável',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:58,nome:'Travesseiros',desc:'Par de travesseiros',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:59,nome:'Protetores de travesseiro',desc:'Par',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:60,nome:'Criados-mudos',desc:'Par',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:61,nome:'Abajures',desc:'Par para criados-mudos',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:62,nome:'Guarda-roupa',desc:'Com espelho',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:63,nome:'Cômoda',desc:'Com gavetas',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:64,nome:'Cabides',desc:'Kit de cabides',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:65,nome:'Cortinas',desc:'Para quarto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:66,nome:'Tapete',desc:'Para quarto',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
@@ -139,7 +135,6 @@ const ambientesInicial = [
     {id:73,nome:'Ferro de passar',desc:'A vapor 2400W',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:74,nome:'Tábua de passar',desc:'Com suporte',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:75,nome:'Varal',desc:'De chão ou parede',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
-    {id:76,nome:'Baldes',desc:'Kit de baldes',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:77,nome:'Mop',desc:'Com cabo telescópico',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
     {id:78,nome:'Cestos organizadores',desc:'Para lavanderia',status:'livre',reservadoPor:null,msgReserva:null,contribuicoes:[]},
   ]},
@@ -195,8 +190,7 @@ function App(){
       setLoading(false);
     };
     carregar();
-    const interval = setInterval(carregar, 15000);
-    return () => clearInterval(interval);
+
   },[]);
 
   // Salvar ambientes no Firebase
