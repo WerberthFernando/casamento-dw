@@ -89,6 +89,7 @@ function Admin({ onLogout }) {
   const [dados, setDados] = useState(null);
   const [sugestoes, setSugestoes] = useState([]);
   const [jaTemos, setJaTemos] = useState([]);
+  const [pixContribs, setPixContribs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [aba, setAba] = useState('reservados');
   const [ultima, setUltima] = useState(null);
@@ -98,9 +99,11 @@ function Admin({ onLogout }) {
       const amb = await fbGet('dados', 'ambientes');
       const sug = await fbGet('dados', 'sugestoes');
       const jt = await fbGet('dados', 'jatemos');
+      const pc = await fbGet('dados', 'pixcontribs');
       setDados(amb);
       setSugestoes(sug || []);
       setJaTemos(jt || []);
+      setPixContribs(pc || []);
       setUltima(new Date());
     } catch(e) { console.error(e); }
     setLoading(false);
@@ -116,11 +119,14 @@ function Admin({ onLogout }) {
   const reservados = todosItens.filter(i => i.status === 'reservado');
   const vaquinhas = todosItens.filter(i => i.contribuicoes && i.contribuicoes.length > 0);
   const totalVaq = vaquinhas.reduce((s, i) => s + i.contribuicoes.reduce((a, c) => a + c.valor, 0), 0);
+  const totalPix = pixContribs.reduce((s, c) => s + c.valor, 0);
+  const totalGeral = totalVaq + totalPix;
   const ambDe = (id) => dados?.find(a => a.itens.some(i => i.id === id));
 
   const abas = [
     {id:'reservados', label:'🎁 Reservados', count: reservados.length},
-    {id:'vaquinhas', label:'🐄 Vaquinhas', count: vaquinhas.length},
+    {id:'vaquinhas', label:'🐄 Vaquinha Itens', count: vaquinhas.length},
+    {id:'pixcontribs', label:'💸 Vaquinha PIX', count: pixContribs.length},
     {id:'vouLevar', label:'🎀 Vou Levar', count: sugestoes.length},
     {id:'jatemos', label:'🏠 Já Temos', count: null},
     {id:'geral', label:'📊 Geral', count: null},
@@ -156,7 +162,7 @@ function Admin({ onLogout }) {
             {label:'Total de itens',valor:todosItens.length,icon:'📋',cor:'#1a4a7a'},
             {label:'Reservados',valor:reservados.length,icon:'🎁',cor:'#e65100'},
             {label:'Em vaquinha',valor:vaquinhas.length,icon:'🐄',cor:'#0288d1'},
-            {label:'Total arrecadado',valor:`R$ ${totalVaq.toFixed(2).replace('.',',')}`,icon:'💰',cor:'#2e7d32'},
+            {label:'Total arrecadado',valor:`R$ ${totalGeral.toFixed(2).replace('.',',')}`,icon:'💰',cor:'#2e7d32'},
           ].map(s=>(
             <div key={s.label} style={{background:'#fff',borderRadius:12,padding:'1rem',borderLeft:`4px solid ${s.cor}`,boxShadow:'0 2px 8px rgba(0,0,0,.05)'}}>
               <div style={{fontSize:'1.4rem',marginBottom:'.3rem'}}>{s.icon}</div>
@@ -273,6 +279,41 @@ function Admin({ onLogout }) {
         )}
 
         {/* VOU LEVAR */}
+        {/* VAQUINHA PIX */}
+        {aba==='pixcontribs' && (
+          <div>
+            <div style={{display:'flex',alignItems:'center',justifyContent:'space-between',marginBottom:'1rem',flexWrap:'wrap',gap:8}}>
+              <div>
+                <div style={{fontSize:'14px',fontWeight:700,color:AZUL}}>Contribuições diretas via PIX</div>
+                <div style={{fontSize:'12px',color:'#aaa'}}>Total: <strong style={{color:'#2e7d32'}}>R$ {totalPix.toFixed(2).replace('.',',')}</strong></div>
+              </div>
+              {pixContribs.length>0&&<button onClick={async()=>{if(!window.confirm('Limpar todas as contribuições PIX?')) return; setPixContribs([]); await fbSet('dados','pixcontribs',[]);}} style={{background:'#fff',color:'#e53935',border:'1.5px solid #ffcdd2',borderRadius:8,padding:'.4rem .9rem',fontSize:'12px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>🗑️ Limpar tudo</button>}
+            </div>
+            {pixContribs.length===0
+              ? <div style={{background:'#fff',borderRadius:12,padding:'3rem',textAlign:'center',color:'#aaa'}}><div style={{fontSize:'3rem',marginBottom:'1rem'}}>💸</div><p>Nenhuma contribuição PIX ainda.</p></div>
+              : <div style={{display:'flex',flexDirection:'column',gap:10}}>
+                  {pixContribs.map((c,i)=>(
+                    <div key={i} style={{background:'#fff',borderRadius:12,padding:'1rem 1.25rem',boxShadow:'0 2px 8px rgba(0,0,0,.05)',borderLeft:'4px solid #2e7d32',display:'flex',alignItems:'center',justifyContent:'space-between',gap:12}}>
+                      <div>
+                        <div style={{fontSize:'14px',fontWeight:700,color:AZUL}}>👤 {c.nome}</div>
+                        {c.data&&<div style={{fontSize:'11px',color:'#aaa'}}>📅 {c.data}</div>}
+                      </div>
+                      <div style={{display:'flex',alignItems:'center',gap:10}}>
+                        <div style={{fontSize:'16px',fontWeight:700,color:'#2e7d32'}}>R$ {Number(c.valor).toFixed(2).replace('.',',')}</div>
+                        <button onClick={async()=>{
+                          if(!window.confirm(`Remover contribuição de ${c.nome}?`)) return;
+                          const novos=pixContribs.filter((_,idx)=>idx!==i);
+                          setPixContribs(novos);
+                          await fbSet('dados','pixcontribs',novos);
+                        }} style={{background:'#fff',color:'#e53935',border:'1.5px solid #ffcdd2',borderRadius:6,padding:'.25rem .5rem',fontSize:'11px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>✕</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+            }
+          </div>
+        )}
+
         {aba==='vouLevar' && (
           sugestoes.length === 0
             ? <div style={{background:'#fff',borderRadius:12,padding:'3rem',textAlign:'center',color:'#aaa'}}>
