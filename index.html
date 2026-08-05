@@ -180,12 +180,16 @@ function App(){
         const sugData = await fbGet('dados','sugestoes');
         if(sugData) setSugestoes(sugData);
         const jtData = await fbGet('dados','jatemos');
-        if(jtData) setJaTemos(jtData);
+        if(jtData){
+          setJaTemos(jtData);
+        } else {
+          // Primeira vez: salva a lista inicial no Firebase
+          await fbSet('dados','jatemos', jaTemosList);
+        }
       } catch(e){ console.error('Erro ao carregar:',e); }
       setLoading(false);
     };
     carregar();
-    // Polling a cada 15 segundos para atualizar em tempo real
     const interval = setInterval(carregar, 15000);
     return () => clearInterval(interval);
   },[]);
