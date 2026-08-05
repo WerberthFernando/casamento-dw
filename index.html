@@ -317,7 +317,9 @@ function App(){
     setModal(null);setForm({nome:'',msg:'',valor:''});
     setTimeout(()=>{
       trocarAba('pix');
-      showToast('💙 Agora finalize seu pagamento via PIX, '+nome+'!');
+      showToast('💙 QR Code gerado! Finalize seu pagamento, '+nome+'!');
+      // Gera o QR Code automaticamente após a aba PIX renderizar
+      setTimeout(()=>gerarQRCode(valor),400);
     },300);
   };
 
