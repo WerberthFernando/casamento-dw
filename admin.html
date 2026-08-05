@@ -223,10 +223,25 @@ function Admin({ onLogout }) {
                 {vaquinhas.map(item => {
                   const amb = ambDe(item.id);
                   const total = item.contribuicoes.reduce((s,c)=>s+c.valor,0);
+
+                  const cancelarContrib = async (idx) => {
+                    if(!window.confirm(`Cancelar a contribuição de ${item.contribuicoes[idx].nome}?`)) return;
+                    const novasContrib = item.contribuicoes.filter((_,i)=>i!==idx);
+                    const novos = dados.map(a=>({...a,itens:a.itens.map(i=>i.id===item.id?{...i,contribuicoes:novasContrib}:i)}));
+                    setDados(novos);
+                    await fbSet('dados','ambientes',novos);
+                  };
+
+                  const cancelarTodas = async () => {
+                    if(!window.confirm(`Cancelar TODAS as contribuições de "${item.nome}"?`)) return;
+                    const novos = dados.map(a=>({...a,itens:a.itens.map(i=>i.id===item.id?{...i,contribuicoes:[]}:i)}));
+                    setDados(novos);
+                    await fbSet('dados','ambientes',novos);
+                  };
+
                   return (
                     <div key={item.id} style={{background:'#fff',borderRadius:12,padding:'1.1rem',boxShadow:'0 2px 8px rgba(0,0,0,.05)',borderLeft:`4px solid #0288d1`}}>
                       <div style={{display:'flex',alignItems:'center',gap:10,marginBottom:'.85rem'}}>
-                        <span style={{fontSize:'1.4rem'}}>{item.icon}</span>
                         <div>
                           <div style={{fontSize:'14px',fontWeight:700,color:AZUL}}>{item.nome}</div>
                           <div style={{fontSize:'11px',color:'#aaa'}}>{amb?.titulo}</div>
@@ -236,17 +251,21 @@ function Admin({ onLogout }) {
                           <div style={{fontSize:'11px',color:'#aaa'}}>{item.contribuicoes.length} contribuição(ões)</div>
                         </div>
                       </div>
-                      <div style={{display:'flex',flexDirection:'column',gap:6}}>
+                      <div style={{display:'flex',flexDirection:'column',gap:6,marginBottom:'.75rem'}}>
                         {item.contribuicoes.map((c,i)=>(
-                          <div key={i} style={{background:'#e3f2fd',borderRadius:8,padding:'.5rem .85rem',display:'flex',alignItems:'center',justifyContent:'space-between'}}>
+                          <div key={i} style={{background:'#e3f2fd',borderRadius:8,padding:'.5rem .85rem',display:'flex',alignItems:'center',justifyContent:'space-between',gap:8}}>
                             <div>
                               <span style={{fontSize:'13px',fontWeight:700,color:'#0d47a1'}}>👤 {c.nome}</span>
                               {c.msg && <div style={{fontSize:'11px',color:'#555',fontStyle:'italic'}}>💬 "{c.msg}"</div>}
                             </div>
-                            <span style={{fontSize:'14px',fontWeight:700,color:'#2e7d32'}}>R$ {c.valor.toFixed(2).replace('.',',')}</span>
+                            <div style={{display:'flex',alignItems:'center',gap:8,flexShrink:0}}>
+                              <span style={{fontSize:'14px',fontWeight:700,color:'#2e7d32'}}>R$ {c.valor.toFixed(2).replace('.',',')}</span>
+                              <button onClick={()=>cancelarContrib(i)} style={{background:'#fff',color:'#e53935',border:'1.5px solid #ffcdd2',borderRadius:6,padding:'.25rem .5rem',fontSize:'11px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>✕</button>
+                            </div>
                           </div>
                         ))}
                       </div>
+                      <button onClick={cancelarTodas} style={{width:'100%',background:'#fff',color:'#e53935',border:'1.5px solid #ffcdd2',borderRadius:8,padding:'.5rem',fontSize:'12px',fontWeight:700,cursor:'pointer',fontFamily:'inherit'}}>🗑️ Cancelar todas as contribuições</button>
                     </div>
                   );
                 })}
