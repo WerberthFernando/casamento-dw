@@ -240,23 +240,50 @@ function App(){
   const gerarQRCode=(valor)=>{
     if(!valor||Number(valor)<=0){showToast('Informe um valor!');return;}
     const chave='61993677985';
-    const nome='WERBERTH F G S SILVA';
+    const nome='WERBERTH FERNANDO';
     const cidade='BRASILIA';
     const valorStr=Number(valor).toFixed(2);
-    const f=(id,val)=>{const l=String(val.length).padStart(2,'0');return id+l+val;};
-    const gui=f('00','br.gov.bcb.pix')+f('01',chave);
-    const addData=f('05','***');
-    let payload=f('00','01')+f('26',gui)+'52040000'+'5303986'+f('54',valorStr)+'5802BR'+f('59',nome)+f('60',cidade)+f('62',addData)+'6304';
+
+    const f=(id,val)=>{
+      const len=String(val.length).padStart(2,'0');
+      return id+len+val;
+    };
+
+    // Merchant Account Info (ID 26)
+    const mai=f('00','br.gov.bcb.pix')+f('01',chave);
+
+    // Additional Data (ID 62)
+    const txid='***';
+    const addData=f('05',txid);
+
+    // Monta payload sem CRC
+    let payload=
+      f('00','01')+           // Payload Format Indicator
+      f('26',mai)+             // Merchant Account Info
+      f('52','0000')+          // Merchant Category Code
+      f('53','986')+           // Transaction Currency (BRL)
+      f('54',valorStr)+        // Transaction Amount
+      f('58','BR')+            // Country Code
+      f('59',nome)+            // Merchant Name
+      f('60',cidade)+          // Merchant City
+      f('62',addData)+         // Additional Data
+      '6304';                  // CRC placeholder
+
+    // Calcula CRC16/CCITT
     let crc=0xFFFF;
     for(let i=0;i<payload.length;i++){
       crc^=payload.charCodeAt(i)<<8;
-      for(let j=0;j<8;j++) crc=(crc&0x8000)?(crc<<1)^0x1021:crc<<1;
+      for(let j=0;j<8;j++){
+        crc=(crc&0x8000)?((crc<<1)^0x1021):(crc<<1);
+        crc&=0xFFFF;
+      }
     }
-    payload+=(crc&0xFFFF).toString(16).toUpperCase().padStart(4,'0');
+    payload+=(crc).toString(16).toUpperCase().padStart(4,'0');
+
     const container=document.getElementById('qrcode-container');
     if(container){
-      const url=`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(payload)}&color=1a4a7a`;
-      container.innerHTML=`<img src="${url}" alt="QR Code PIX" style="width:180px;height:180px;border-radius:8px"/>`;
+      const url=`https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=${encodeURIComponent(payload)}&color=1a4a7a&bgcolor=ffffff&margin=10`;
+      container.innerHTML=`<img src="${url}" alt="QR Code PIX" style="width:180px;height:180px;border-radius:8px" onload="this.style.opacity=1" style="opacity:0"/>`;
     }
     showToast('✅ QR Code gerado!');
   };
